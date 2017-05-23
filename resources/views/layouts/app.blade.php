@@ -7,7 +7,7 @@
     <title><?php echo $site_title; ?></title>
     <link rel='stylesheet' href='/css/style.css' type='text/css' />
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-    <?php include 'modules/header.php'; ?>
+    @include('modules.header')
     <script type="text/javascript" src="js/script-site.js"></script>
 </head>
 <body>
@@ -19,8 +19,9 @@
         <div class="menu1">
             <?php
             $num_menu=1; // select menu
-            include 'modules/menu.php';
+            //include 'modules/menu.php';
             ?>
+                @include('modules.menu')
         </div>
         <div id="clear"></div>
         <div class="line"></div>
@@ -32,7 +33,7 @@
         <tr>
             <td class="left_bl" valign="top">
                 <div class="select" >
-                    <?php include "modules/form_select_item.php"; ?>
+                    @include('modules.form_select_item')
 
                 </div>
                 <div class="block">
@@ -59,14 +60,16 @@
 
                         <?php
                         $num_menu=2;
-                        include 'modules/menu.php';
+                        //include 'modules/menu.php';
                         ?>
+                            @include('modules.menu')
                         <div id="clear"></div>
                     </div>
                 </div>
                 <?php if(!$_GET['id'] || $_GET['id']=='home'){include 'modules/slideshow.php';} ?>
+    @include('modules.slideshow')
 
-                <?php include 'templates/content.php'; ?>
+    @include('layouts.content')
 
 </div>
 </td>
@@ -78,8 +81,9 @@
         <ul>
             <?php
             $num_menu=1; // select menu
-            include 'modules/menu.php';
+            //include 'modules/menu.php';
             ?>
+                @include('modules.menu')
         </ul>
     </div>
     <div class='copyright'>
