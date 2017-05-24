@@ -14,6 +14,5 @@
                 <a href="#" title="Аксессуары">5</a>
             </div></div>
     </div>
-    <script type="text/javascript" src="js/wowslider.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+
 </div>

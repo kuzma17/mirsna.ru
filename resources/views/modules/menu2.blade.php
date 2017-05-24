@@ -2,23 +2,7 @@
     <?php
     //$num_menu=2; // select menu
 
-        $menu = [
-                [
-                        'id'=>1,
-                'url' => 1,
-            'name' => 'home'
-        ],
-                [
-                        'url' => 2,
-                        'name' => 'contacts'
-                ],
-                [
-                        'url' => 3,
-                        'name' => 'about'
-                ],
-        ];
-
-    $sub_menu1_ = [
+    $menu = [
             [
                     'url' => 1,
                     'name' => 'home'
@@ -32,7 +16,22 @@
                     'name' => 'about'
             ],
     ];
-    $sub_menu2_ = [
+
+    $sub_menu1 = [
+            [
+                    'url' => 1,
+                    'name' => 'home'
+            ],
+            [
+                    'url' => 2,
+                    'name' => 'contacts'
+            ],
+            [
+                    'url' => 3,
+                    'name' => 'about'
+            ],
+    ];
+    $sub_menu2 = [
             [
                     'url' => 1,
                     'name' => 'home'
@@ -62,7 +61,7 @@
             ],
     ];
 
-   // $menu=$body->menu($num_menu, 0);
+    // $menu=$body->menu($num_menu, 0);
     for ($i=0; $i < count($menu); $i++){
         echo '<li class="lin0">';
         if($menu[$i]["url"]!=''){
@@ -76,7 +75,7 @@
                 if($sub_menu1[$s1]["url"]!=''){
                     echo 'class="lin1"><a href="'.$sub_menu1[$s1]["url"].'">'.$sub_menu1[$s1]['name'].'</a>';
                 }else{ echo 'class="lin1_arrow"><span>'.$sub_menu1[$s1]['name'].'</span>'; }
-               // $sub_menu2=$body->menu($num_menu, $sub_menu1[$s1]['id']);
+                // $sub_menu2=$body->menu($num_menu, $sub_menu1[$s1]['id']);
                 if(isset($sub_menu2) && is_array($sub_menu2)){
                     echo '<ul class="parent2">';
                     for ($s2=0; $s2 < count($sub_menu2); $s2++){
