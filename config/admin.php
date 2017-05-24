@@ -49,8 +49,8 @@ return [
         'disk' => 'admin',
 
         'directory'  => [
-            'image'  => 'image',
-            'file'   => 'file',
+            'image'  => 'images',
+            'file'   => 'files',
         ],
 
         'host' => 'http://mirsna.od.ru/upload/',
