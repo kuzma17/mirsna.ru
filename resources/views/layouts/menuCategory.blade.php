@@ -18,11 +18,11 @@
         @if(\App\Category::where('published', 1)->where('parent_id', $menu->id)->get())
             <ul class="parent1">
                 @foreach(\App\Category::where('published', 1)->where('parent_id', $menu->id)->get() as $menu1)
-                    <li class="parent1"><a href="{{ $menu1->url }}">{{ $menu1->title }}</a>
+                    <li class="lin1"><a href="{{ $menu1->url }}">{{ $menu1->title }}</a>
                         @if(\App\Category::where('published', 1)->where('parent_id', $menu1->id)->get())
-                            <ul class="parent1">
+                            <ul class="parent2">
                                 @foreach(\App\Category::where('published', 1)->where('parent_id', $menu->id)->get() as $menu2)
-                                    <li class="parent1"><a href="{{ $menu2->url }}">{{ $menu2->title }}</a></li>
+                                    <li class="lin2"><a href="{{ $menu2->url }}">{{ $menu2->title }}</a></li>
                                 @endforeach
                             </ul>
                         @endif

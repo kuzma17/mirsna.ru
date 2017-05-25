@@ -11,14 +11,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <!-- <link href="/css/app.css" rel="stylesheet"> -->
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/slideshow.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
+                'csrfToken' => csrf_token(),
         ]); ?>
     </script>
 </head>
@@ -41,7 +41,7 @@
     <table id="container" width="100%" cellpadding="0" cellspacing="0">
         <tr>
             <td class="left_bl" valign="top">
-                <div class="select" >
+                <div class="select">
                     @include('modules.form_select_item')
 
 
@@ -49,19 +49,33 @@
                 <div class="block">
                     <h3>Акционные предложения</h3>
                     <div class="line2"></div>
-                    <a href="index.php?id=actions"><img src="images/banner01.jpg" border="0" /></a>
+                    <a href="index.php?id=actions"><img src="images/banner01.jpg" border="0"/></a>
                 </div>
                 <div style="width:250px; height:100px"></div>
             </td>
             <td class="center_bl" valign="top">
                 <div class="brends">
-                    <a class="" href="index.php?id=doctor_health"><img src="images/doctor_health.jpg" onmouseover="javascript:this.src='images/doctor_health_h.jpg'" onmouseout="javascript:this.src='images/doctor_health.jpg'" /></a>
-                    <a class="" href="index.php?id=evolution"><img src="images/evolution.jpg" onmouseover="javascript:this.src='images/evolution_h.jpg'" onmouseout="javascript:this.src='images/evolution.jpg'" /></a>
-                    <a class="" href="index.php?id=herbalis_kids"><img src="images/herbalis_kids.jpg" onmouseover="javascript:this.src='images/herbalis_kids_h.jpg'" onmouseout="javascript:this.src='images/herbalis_kids.jpg'" /></a>
-                    <a class="" href="index.php?id=take_go"><img src="images/take_go.jpg" onmouseover="javascript:this.src='images/take_go_h.jpg'" onmouseout="javascript:this.src='images/take_go.jpg'" /></a>
-                    <a class="" href="index.php?id=viva"><img src="images/viva.jpg" onmouseover="javascript:this.src='images/viva_h.jpg'" onmouseout="javascript:this.src='images/viva.jpg'" /></a>
-                    <a class="" href="index.php?id=sleep_fly"><img src="images/sleep_fly.jpg" onmouseover="javascript:this.src='images/sleep_fly_h.jpg'" onmouseout="javascript:this.src='images/sleep_fly.jpg'" /></a>
-                    <a class="" href="index.php?id=american_dream"><img src="images/american_dream.jpg" onmouseover="javascript:this.src='images/american_dream_h.jpg'" onmouseout="javascript:this.src='images/american_dream.jpg'" /></a>
+                    <a class="" href="index.php?id=doctor_health"><img src="images/doctor_health.jpg"
+                                                                       onmouseover="javascript:this.src='images/doctor_health_h.jpg'"
+                                                                       onmouseout="javascript:this.src='images/doctor_health.jpg'"/></a>
+                    <a class="" href="index.php?id=evolution"><img src="images/evolution.jpg"
+                                                                   onmouseover="javascript:this.src='images/evolution_h.jpg'"
+                                                                   onmouseout="javascript:this.src='images/evolution.jpg'"/></a>
+                    <a class="" href="index.php?id=herbalis_kids"><img src="images/herbalis_kids.jpg"
+                                                                       onmouseover="javascript:this.src='images/herbalis_kids_h.jpg'"
+                                                                       onmouseout="javascript:this.src='images/herbalis_kids.jpg'"/></a>
+                    <a class="" href="index.php?id=take_go"><img src="images/take_go.jpg"
+                                                                 onmouseover="javascript:this.src='images/take_go_h.jpg'"
+                                                                 onmouseout="javascript:this.src='images/take_go.jpg'"/></a>
+                    <a class="" href="index.php?id=viva"><img src="images/viva.jpg"
+                                                              onmouseover="javascript:this.src='images/viva_h.jpg'"
+                                                              onmouseout="javascript:this.src='images/viva.jpg'"/></a>
+                    <a class="" href="index.php?id=sleep_fly"><img src="images/sleep_fly.jpg"
+                                                                   onmouseover="javascript:this.src='images/sleep_fly_h.jpg'"
+                                                                   onmouseout="javascript:this.src='images/sleep_fly.jpg'"/></a>
+                    <a class="" href="index.php?id=american_dream"><img src="images/american_dream.jpg"
+                                                                        onmouseover="javascript:this.src='images/american_dream_h.jpg'"
+                                                                        onmouseout="javascript:this.src='images/american_dream.jpg'"/></a>
                     <div id="clear"></div>
                 </div>
 
@@ -74,10 +88,10 @@
                     </div>
                 </div>
                 @include('modules.slideshow')
-<div style="width: 500px">
-@yield('content')
-</div>
-</div>
+                <div style="width: 500px">
+                    @yield('content')
+                </div>
+
 </td>
 </tr>
 </table>
@@ -90,14 +104,15 @@
         </ul>
     </div>
     <div class='copyright'>
-        Copyright 2013 © mirsna.od.ua &nbsp;&nbsp;Designed by <a href='mailto:v.kuzma@mail.ru' title='написать письмо вебмастеру'>Kuzma</a>
+        Copyright 2013 © mirsna.od.ua &nbsp;&nbsp;Designed by <a href='mailto:v.kuzma@mail.ru'
+                                                                 title='написать письмо вебмастеру'>Kuzma</a>
     </div>
 </div>
 </div>
 </div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
+<!-- Scripts -->
+<script src="/js/app.js"></script>
 
 <script src="/js/script-site.js"></script>
 
