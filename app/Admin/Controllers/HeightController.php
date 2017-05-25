@@ -74,9 +74,8 @@ class HeightController extends Controller
         return Admin::grid(Height::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->min('min');
-            $grid->max('max');
-            $grid->num('номер');
+            $grid->name('Высота');
+            $grid->num('Номер');
             $grid->column('published', 'вкл./откл.')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';
@@ -99,9 +98,8 @@ class HeightController extends Controller
         return Admin::form(Height::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('min', 'Высота min');
-            $form->text('max', 'Высота max');
-            $form->text('num', 'номер');
+            $form->text('name', 'Высота');
+            $form->text('num', 'Номер');
             $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
 
             $form->display('created_at', 'Created At');
