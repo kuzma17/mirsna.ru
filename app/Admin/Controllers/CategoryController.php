@@ -75,13 +75,13 @@ class CategoryController extends Controller
         return Admin::grid(Category::class, function (Grid $grid) {
 
             $grid->model()->where('id', '>', 1); // пропускаем 1 элемент
-            $grid->id('ID')->sortable();
+            $grid->column('id', 'ID')->sortable();
             $grid->column('parent_id', 'Родительская категория')->display(function($id){
                 return Category::find($id)->title;
             });
-            $grid->title('Название');
-            $grid->url('url');
-            $grid->num('Номер по порядку');
+            $grid->column('title', 'Название');
+            $grid->column('url', 'url');
+            $grid->column('num', 'Номер по порядку');
             $grid->column('published', 'Публикация')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

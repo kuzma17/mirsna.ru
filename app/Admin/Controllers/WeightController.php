@@ -73,9 +73,9 @@ class WeightController extends Controller
     {
         return Admin::grid(Weight::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->name('Вес');
-            $grid->num('номер');
+            $grid->column('id','ID')->sortable();
+            $grid->column('name', 'Вес');
+            $grid->column('num','номер');
             $grid->column('published', 'вкл./откл.')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

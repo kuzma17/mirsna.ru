@@ -18,6 +18,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Illuminate\Support\MessageBag;
 use Image;
 
 class ItemController extends Controller
@@ -84,7 +85,7 @@ class ItemController extends Controller
     {
         return Admin::grid(Item::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
+            $grid->column('id')->sortable();
             $grid->column('name', 'Наименование');
             $grid->column('image', 'image')->display(function ($img){
                 return '<img src="/upload/'.$img.'_50x50.jpg" style="width:50px; height:30px">';
@@ -174,20 +175,27 @@ class ItemController extends Controller
                     $image = $path.'images/'.$this->image;
                 }
 
-                $img = Image::make($image);
-                $img->resize(100, 100);
-                $img->save($image.'_100x100.jpg');
+               // $img = Image::make($image);
+              //  $img->resize(100, 100);
+              //  $img->save($image.'_100x100.jpg');
 
-                $img = Image::make($image);
-                $img->resize(50, 50);
-                $img->save($image.'_50x50.jpg');
-
-                $img = Image::make($image);
-                $img->resize(300, 300);
-                $img->save($image.'_300x30.jpg');
+             //   $img = Image::make($image);
+              //  $img->resize(50, 50);
+                //$img->save($image.'_50x50.jpg');
+//
+             //   $img = Image::make($image);
+              //  $img->resize(300, 300);
+              //  $img->save($image.'_300x30.jpg');
 
                 // return back()->with(compact('success'));
                 // return redirect('/admin?id='.$image);
+
+                $success = new MessageBag([
+                    'title'   => 'title...',
+                    'message' => $image,
+                ]);
+
+                return back()->with(compact('success'));
             });
         });
     }

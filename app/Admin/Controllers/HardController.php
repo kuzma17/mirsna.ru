@@ -73,9 +73,9 @@ class HardController extends Controller
     {
         return Admin::grid(Hard::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->name('Название');
-            $grid->num('номер');
+            $grid->column('id','ID')->sortable();
+            $grid->column('name', 'Название');
+            $grid->column('num','номер');
             $grid->column('published', 'вкл./откл.')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

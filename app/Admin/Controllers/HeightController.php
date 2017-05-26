@@ -73,9 +73,9 @@ class HeightController extends Controller
     {
         return Admin::grid(Height::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->name('Высота');
-            $grid->num('Номер');
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('name', 'Высота');
+            $grid->column('num', 'Номер');
             $grid->column('published', 'вкл./откл.')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

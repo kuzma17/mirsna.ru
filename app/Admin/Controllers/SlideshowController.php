@@ -76,12 +76,12 @@ class SlideshowController extends Controller
     {
         return Admin::grid(Slideshow::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
+            $grid->column('id', 'ID')->sortable();
             $grid->column('image', 'картинка')->display(function ($img){
                 return '<img src="/upload/'.$img.'" style="width:200px; height:60px">';
             });
-            $grid->title('текст');
-            $grid->num('номер');
+            $grid->column('title', 'текст');
+            $grid->column('num', 'номер');
             $grid->column('published', 'Публикация')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

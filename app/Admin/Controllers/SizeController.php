@@ -73,13 +73,13 @@ class SizeController extends Controller
     {
         return Admin::grid(Size::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->x('Ширина');
-            $grid->y('Высота');
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('x', 'Ширина');
+            $grid->column('y', 'Высота');
             $grid->column('Размер')->display(function(){
                 return '<span class="badge bg-grey">'.$this->x.' x '.$this->y.'</span>';
             });
-            $grid->num('номер');
+            $grid->column('num', 'номер');
             $grid->column('published', 'вкл./откл.')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

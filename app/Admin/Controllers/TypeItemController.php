@@ -74,8 +74,8 @@ class TypeItemController extends Controller
     {
         return Admin::grid(TypeItem::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->name('Тип');
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('name', 'Тип');
             $grid->column('published', 'вкл./откл.')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

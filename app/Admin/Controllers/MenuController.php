@@ -73,10 +73,10 @@ class MenuController extends Controller
     {
         return Admin::grid(Menu::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->title('Название');
-            $grid->url('url');
-            $grid->num('Номер по порядку');
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('id', 'Название');
+            $grid->column('url', 'url');
+            $grid->column('num', 'Номер по порядку');
             $grid->column('published', 'Публикация')->display(function($id){
                 if($id == 1){
                     return '<span class="badge bg-green">on</span>';

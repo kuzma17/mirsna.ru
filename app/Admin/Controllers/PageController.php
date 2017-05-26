@@ -73,8 +73,8 @@ class PageController extends Controller
     {
         return Admin::grid(Page::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
-            $grid->title('title');
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('title', 'title');
 
             $grid->created_at();
             $grid->updated_at();
