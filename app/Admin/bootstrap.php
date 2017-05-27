@@ -18,4 +18,15 @@
  *
  */
 
+//Encore\Admin\Form::forget(['map', 'editor']);
+
+use Encore\Admin\Admin;
+use Encore\Admin\Form;
+use App\Admin\Extensions\Form\CKEditor;
+use App\Admin\Extensions\BadgeMenu;
+
 Encore\Admin\Form::forget(['map', 'editor']);
+Form::extend('ckeditor', CKEditor::class);
+
+//Admin::script(BadgeMenu::countOrder());
+//Admin::script(BadgeMenu::countBrand());

@@ -9,4 +9,8 @@ class ItemHard extends Model
     protected $table = 'item_hard';
 
     protected $fillable = ['item_id', 'hard_id'];
+
+    public function hard(){
+        return $this->belongsTo(Hard::class);
+    }
 }

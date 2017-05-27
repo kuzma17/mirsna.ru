@@ -26,7 +26,6 @@ class ItemController extends Controller
     use ModelForm;
 
     protected $image;
-    protected $image2;
 
     /**
      * Index interface.
@@ -135,11 +134,12 @@ class ItemController extends Controller
                 $this->image = $name_image;
 
                 //$form->display('id', 'ID');
-                //$form->hidden('id');
                 $form->text('name', 'Наименование');
-                $form->textarea('text', 'Текст');
+                $form->ckeditor('text', 'Текст');
                 $form->image('image', 'image')->resize(300, 200)->name($name_image);
                 $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
+                $form->display('created_at', 'Created At');
+                $form->display('updated_at', 'Updated At');
             })->tab('Параметры', function(Form $form){
                 $form->select('type_item_id', 'Тип')->options(TypeItem::all()->pluck('name', 'id'));
                 $form->select('brand_id', 'Тип')->options(Brand::all()->pluck('name', 'id'));
@@ -163,22 +163,16 @@ class ItemController extends Controller
                 });
             });
 
-
-            $form->display('created_at', 'Created At');
-            $form->display('updated_at', 'Updated At');
-
             $form->saved(function (Form $form){
                 if($form->image) {
-                    //$id = $form->id;
+
                     $path = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
 
                     if ($form->id) {
-                        // //$image = $path.Item::find($form->id)->image;
                         $image = $form->image;
                     } else {
                         $image = 'images/' . $this->image;
                     }
-
 
                     $image = $path . $image;
 
@@ -195,15 +189,6 @@ class ItemController extends Controller
                       $img->save($image.'_100x50.jpg');
 
                 }
-                // return back()->with(compact('success'));
-                // return redirect('/admin?id='.$image);
-
-               // $success = new MessageBag([
-               //     'title'   => 'title...',
-                //    'message' => $form->image,
-               // ]);
-
-               // return back()->with(compact('success'));
             });
         });
     }

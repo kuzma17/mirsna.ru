@@ -19,4 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/page/{url}', ['as'=>'page', 'uses'=>'PageController@page']);
+Route::get('/item/list', ['as'=>'listItem', 'uses'=>'ItemController@listItem']);
+Route::get('/item/{id}', ['as'=>'item', 'uses'=>'ItemController@item']);
 

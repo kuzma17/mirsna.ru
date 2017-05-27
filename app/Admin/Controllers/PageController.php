@@ -93,7 +93,7 @@ class PageController extends Controller
             //$form->display('id', 'ID');
             $form->text('title', 'Название');
             $form->text('keywords', 'Ключевые слова');
-            $form->textarea('text', 'Текст страници');
+            $form->ckeditor('text', 'Текст страници');
 
             //$form->display('created_at', 'Created At');
             //$form->display('updated_at', 'Updated At');
