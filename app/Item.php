@@ -37,4 +37,5 @@ class Item extends Model
     public function hard(){
         return $this->hasMany(ItemHard::class);
     }
+
 }

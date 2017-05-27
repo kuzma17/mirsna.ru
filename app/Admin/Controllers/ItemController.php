@@ -26,6 +26,7 @@ class ItemController extends Controller
     use ModelForm;
 
     protected $image;
+    protected $image2;
 
     /**
      * Index interface.
@@ -88,7 +89,7 @@ class ItemController extends Controller
             $grid->column('id')->sortable();
             $grid->column('name', 'Наименование');
             $grid->column('image', 'image')->display(function ($img){
-                return '<img src="/upload/'.$img.'_50x50.jpg" style="width:50px; height:30px">';
+                return '<img src="/upload/'.$img.'_100x50.jpg" style="width:50px; height:30px">';
             });
             $grid->column('type_item.name', 'Тип');
             $grid->column('brand.name', 'Бренд');
@@ -127,18 +128,19 @@ class ItemController extends Controller
     {
         return Admin::form(Item::class, function (Form $form) {
 
-            $form->tab('Основное', function($form){
+            $form->tab('Основное', function(Form $form){
 
                 $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
                 $name_image = $this->getFileName($path.'images');
                 $this->image = $name_image;
 
-                $form->display('id', 'ID');
+                //$form->display('id', 'ID');
+                //$form->hidden('id');
                 $form->text('name', 'Наименование');
                 $form->textarea('text', 'Текст');
-                $form->image('image', 'image')->name($name_image);
+                $form->image('image', 'image')->resize(300, 200)->name($name_image);
                 $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
-            })->tab('Параметры', function($form){
+            })->tab('Параметры', function(Form $form){
                 $form->select('type_item_id', 'Тип')->options(TypeItem::all()->pluck('name', 'id'));
                 $form->select('brand_id', 'Тип')->options(Brand::all()->pluck('name', 'id'));
                 $form->select('series_id', 'Серия')->options(Series::all()->pluck('name', 'id'));
@@ -148,7 +150,7 @@ class ItemController extends Controller
                 $form->hasMany('hard', 'Жосткость', function(Form\NestedForm $form){
                     $form->select('hard_id', 'жосткость')->options(Hard::all()->pluck('name', 'id'));
                 });
-            })->tab('Плайс', function($form){
+            })->tab('Плайс', function(Form $form){
                 $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){
                     $form->select('size_id', 'размер')->options(function(){
                         $arr = [];
@@ -166,36 +168,42 @@ class ItemController extends Controller
             $form->display('updated_at', 'Updated At');
 
             $form->saved(function (Form $form){
-                //$id = $form->id;
-                $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
+                if($form->image) {
+                    //$id = $form->id;
+                    $path = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
 
-                if($form->id){
-                    $image = $path.Item::find($form->id)->image;
-                }else{
-                    $image = $path.'images/'.$this->image;
-                }
+                    if ($form->id) {
+                        // //$image = $path.Item::find($form->id)->image;
+                        $image = $form->image;
+                    } else {
+                        $image = 'images/' . $this->image;
+                    }
 
-               // $img = Image::make($image);
-              //  $img->resize(100, 100);
-              //  $img->save($image.'_100x100.jpg');
 
-             //   $img = Image::make($image);
-              //  $img->resize(50, 50);
-                //$img->save($image.'_50x50.jpg');
+                    $image = $path . $image;
+
+                    // $img = Image::make($image);
+                    //  $img->resize(100, 100);
+                    //  $img->save($image.'_100x100.jpg');
+
+                    $img = Image::make($image);
+                    $img->resize(150, 100);
+                    $img->save($image . '_150x100.jpg');
 //
-             //   $img = Image::make($image);
-              //  $img->resize(300, 300);
-              //  $img->save($image.'_300x30.jpg');
+                       $img = Image::make($image);
+                      $img->resize(100, 50);
+                      $img->save($image.'_100x50.jpg');
 
+                }
                 // return back()->with(compact('success'));
                 // return redirect('/admin?id='.$image);
 
-                $success = new MessageBag([
-                    'title'   => 'title...',
-                    'message' => $image,
-                ]);
+               // $success = new MessageBag([
+               //     'title'   => 'title...',
+                //    'message' => $form->image,
+               // ]);
 
-                return back()->with(compact('success'));
+               // return back()->with(compact('success'));
             });
         });
     }
