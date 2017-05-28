@@ -11,10 +11,16 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Request;
 
 class CategoryController extends Controller
 {
     use ModelForm;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -75,19 +81,14 @@ class CategoryController extends Controller
         return Admin::grid(Category::class, function (Grid $grid) {
 
             $grid->model()->where('id', '>', 1); // пропускаем 1 элемент
-            $grid->column('id', 'ID')->sortable();
+           // $grid->column('id', 'ID')->sortable();
             $grid->column('parent_id', 'Родительская категория')->display(function($id){
                 return Category::find($id)->title;
             });
             $grid->column('title', 'Название');
             $grid->column('url', 'url');
             $grid->column('num', 'Номер по порядку');
-            $grid->column('published', 'Публикация')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
@@ -103,15 +104,23 @@ class CategoryController extends Controller
     {
         return Admin::form(Category::class, function (Form $form) {
 
-            $form->display('id', 'ID');
+           // $form->display('id', 'ID');
             $form->select('parent_id', 'Родительская категория')->options(Category::all()->pluck('title', 'id'));
-            $form->text('title', 'Название');
+            $form->text('title', 'Название')->rules('required');
             $form->text('url', 'Ссилка');
-            $form->text('num', 'Номер по порядку');
-            $form->select('published', 'Публиковать')->options([1 => 'On',0 => 'Off',]);
+            $form->number('num', 'Номер по порядку')->default(Category::max('num') + 1);
+            $form->switch('status')->states($this->states)->default(1);
 
            // $form->display('created_at', 'Created At');
             //$form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (Category::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

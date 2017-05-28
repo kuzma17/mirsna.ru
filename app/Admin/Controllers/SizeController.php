@@ -10,10 +10,16 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Request;
 
 class SizeController extends Controller
 {
     use ModelForm;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -80,12 +86,7 @@ class SizeController extends Controller
                 return '<span class="badge bg-grey">'.$this->x.' x '.$this->y.'</span>';
             });
             $grid->column('num', 'номер');
-            $grid->column('published', 'вкл./откл.')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
@@ -102,13 +103,21 @@ class SizeController extends Controller
         return Admin::form(Size::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('x', 'Ширина');
-            $form->text('y', 'Высота');
-            $form->text('num', 'номер');
-            $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
+            $form->text('x', 'Ширина')->rules('required');
+            $form->text('y', 'Высота')->rules('required');
+            $form->number('num', 'Номер по порядку')->default(Size::max('num')+1);
+            $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (Size::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

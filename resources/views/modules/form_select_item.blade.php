@@ -8,7 +8,9 @@
                 <td>
                     <select name="brend">
                         <OPTION value="">Не важно</OPTION>
-
+                        @foreach(\App\Brand::where('status', 1)->orderBy('num', 'asc')->get() as $brand)
+                            <option value="{{ $brand->id }}" >{{ $brand->name }}</option>
+                        @endforeach
                     </select>
                 </td>
             </TR>
@@ -17,7 +19,9 @@
                 <td>
                     <select name="size">
                         <OPTION value="">Не важно</OPTION>
-
+                        @foreach(\App\Size::where('status', 1)->orderBy('num', 'asc')->get() as $size)
+                            <option value="{{ $size->id }}" >{{ $size->x.' x '.$size->y }}</option>
+                        @endforeach
                     </select>
                 </td>
             </tr>
@@ -26,7 +30,9 @@
                 <td>
                     <select name="height">
                         <OPTION value="">Не важно</OPTION>
-
+                        @foreach(\App\Height::where('status', 1)->orderBy('num', 'asc')->get() as $height)
+                            <option value="{{ $height->id }}" >{{ $height->name }}</option>
+                        @endforeach
                     </select>
                 </td>
             </tr>
@@ -36,7 +42,9 @@
                 <td>
                     <select name="pr_block">
                         <OPTION value="">Не важно</OPTION>
-
+                        @foreach(\App\Spring::where('status', 1)->orderBy('num', 'asc')->get() as $spring)
+                            <option value="{{ $spring->id }}" >{{ $spring->name }}</option>
+                        @endforeach
                     </select>
                 </td>
             </tr>
@@ -45,7 +53,9 @@
                 <td>
                     <select name="hard">
                         <OPTION value="">Не важно</OPTION>
-
+                        @foreach(\App\Hard::where('status', 1)->orderBy('num', 'asc')->get() as $hard)
+                            <option value="{{ $hard->id }}" >{{ $hard->name }}</option>
+                        @endforeach
                     </select>
                 </td>
             </tr>
@@ -54,7 +64,9 @@
                 <td>
                     <select name="weight">
                         <OPTION value="">Не важно</OPTION>
-
+                        @foreach(\App\Weight::where('status', 1)->orderBy('num', 'asc')->get() as $weight)
+                            <option value="{{ $weight->id }}" >{{ $weight->name }}</option>
+                        @endforeach
                     </select>
                 </td>
             </tr>

@@ -11,12 +11,16 @@ use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 use Image;
+use Request;
 
 class SlideshowController extends Controller
 {
     use ModelForm;
 
-    protected $image;
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -76,18 +80,13 @@ class SlideshowController extends Controller
     {
         return Admin::grid(Slideshow::class, function (Grid $grid) {
 
-            $grid->column('id', 'ID')->sortable();
-            $grid->column('image', 'картинка')->display(function ($img){
+            //$grid->column('id', 'ID')->sortable();
+            $grid->column('num', 'Номер')->sortable();
+            $grid->column('image', 'Картинка')->display(function ($img){
                 return '<img src="/upload/'.$img.'" style="width:200px; height:60px">';
             });
-            $grid->column('title', 'текст');
-            $grid->column('num', 'номер');
-            $grid->column('published', 'Публикация')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('title', 'Слоган')->editable();
+            $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
@@ -120,35 +119,23 @@ class SlideshowController extends Controller
 
             $name_image = $this->getFileName($path.'slider').'.jpg';
 
-            $this->image = $name_image;
-
-            $form->display('id', 'ID');
-            $form->image('image')->move('slider', $name_image);;
+            //$form->display('id', 'ID');
+            $form->image('image')->resize(730, 250)->move('slider', $name_image)->rules('required');
             $form->text('title', 'текст');
-            $form->text('num', 'номер');
-            $form->select('published', 'Публиковать')->options([0 => 'Off', 1 => 'On']);
+            $form->number('num', 'номер')->default(Slideshow::max('num')+1);
+            $form->switch('status')->states($this->states)->default(1);
 
-            //$form->display('created_at', 'Created At');
-           // $form->display('updated_at', 'Updated At');
-            $form->saved(function (Form $form){
-                //$id = $form->id;
-                $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
-
-                if($form->id){
-                    $image = $path.Slideshow::find($form->id)->image;
-                }else{
-                    $image = $path.'slider/'.$this->image;
-                }
-
-
-                $img = Image::make($image);
-                $img->resize(730, 250);
-                $img->save($image);
-
-
-                // return back()->with(compact('success'));
-                // return redirect('/admin?id='.$image);
-            });
+            $form->display('created_at', 'Created At');
+            $form->display('updated_at', 'Updated At');
         });
+    }
+
+
+    public function release(Request $request)
+    {
+        foreach (Slideshow::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

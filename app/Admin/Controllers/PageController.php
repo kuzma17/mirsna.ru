@@ -91,9 +91,9 @@ class PageController extends Controller
         return Admin::form(Page::class, function (Form $form) {
 
             //$form->display('id', 'ID');
-            $form->text('title', 'Название');
+            $form->text('title', 'Название')->rules('required');
             $form->text('keywords', 'Ключевые слова');
-            $form->ckeditor('text', 'Текст страници');
+            $form->ckeditor('text', 'Текст страници')->rules('required');
 
             //$form->display('created_at', 'Created At');
             //$form->display('updated_at', 'Updated At');

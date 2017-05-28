@@ -10,10 +10,16 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Request;
 
 class MenuController extends Controller
 {
     use ModelForm;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -77,12 +83,7 @@ class MenuController extends Controller
             $grid->column('id', 'Название');
             $grid->column('url', 'url');
             $grid->column('num', 'Номер по порядку');
-            $grid->column('published', 'Публикация')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             //$grid->created_at();
             $grid->updated_at();
@@ -99,13 +100,21 @@ class MenuController extends Controller
         return Admin::form(Menu::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('title', 'Название');
+            $form->text('title', 'Название')->rules('required');
             $form->text('url', 'Ссилка');
-            $form->text('num', 'Номер по порядку');
-            $form->select('published', 'Публиковать')->options([1 => 'On',0 => 'Off',]);
+            $form->number('num', 'Номер по порядку')->default(Menu::max('num')+1);
+            $form->switch('status')->states($this->states)->default(1);
 
             //$form->display('created_at', 'Created At');
             //$form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (Menu::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

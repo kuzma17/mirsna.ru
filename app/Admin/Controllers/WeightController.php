@@ -10,10 +10,16 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Request;
 
 class WeightController extends Controller
 {
     use ModelForm;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -76,12 +82,7 @@ class WeightController extends Controller
             $grid->column('id','ID')->sortable();
             $grid->column('name', 'Вес');
             $grid->column('num','номер');
-            $grid->column('published', 'вкл./откл.')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             //$grid->created_at();
             //$grid->updated_at();
@@ -98,12 +99,20 @@ class WeightController extends Controller
         return Admin::form(Weight::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('name', 'Вес');
-            $form->text('num', 'номер');
-            $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
+            $form->text('name', 'Вес')->rules('required');
+            $form->number('num', 'Номер по порядку')->default(Weight::max('num')+1);
+            $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (Weight::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

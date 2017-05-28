@@ -31,7 +31,6 @@
         </div>
         <div class="menu1">
             @include('layouts.menu')
-
         </div>
         <div id="clear"></div>
         <div class="line"></div>
@@ -88,6 +87,7 @@
                         <div id="clear"></div>
                     </div>
                 </div>
+                @include('modules.slideshow')
 
                 <div >
                     @yield('content')

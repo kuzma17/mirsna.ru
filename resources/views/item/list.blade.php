@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="sort">
-сортировать по цене: <a href="&sort=1"> вниз</a> <A href="">вверх</A>
+сортировать по цене: <a href="/item/list/sort/desc"> вниз</a> <A href="/item/list/sort/asc">вверх</A>
 </div>
 
 

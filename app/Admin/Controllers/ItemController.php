@@ -20,12 +20,18 @@ use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 use Illuminate\Support\MessageBag;
 use Image;
+use Request;
 
 class ItemController extends Controller
 {
     use ModelForm;
 
     protected $image;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -87,21 +93,23 @@ class ItemController extends Controller
 
             $grid->column('id')->sortable();
             $grid->column('name', 'Наименование');
+            //$grid->column('image', 'image')->image($this->image, 50);
             $grid->column('image', 'image')->display(function ($img){
                 return '<img src="/upload/'.$img.'_100x50.jpg" style="width:50px; height:30px">';
             });
             $grid->column('type_item.name', 'Тип');
             $grid->column('brand.name', 'Бренд');
             $grid->column('spring.name', 'Пр. блок');
-            $grid->column('published', 'вкл./откл.')->display(function($id){
-               if($id == 1){
-                   return '<span class="badge bg-green">on</span>';
-               }
-               return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             //$grid->created_at();
             $grid->updated_at();
+            $grid->filter(function ($filter) {
+                $filter->useModal();
+                $filter->like('name', 'Наименование');
+                $filter->is('type_item_id', 'тип')->select(TypeItem::all()->pluck('name', 'id'));
+                $filter->is('brand_id', 'бренд')->select(Brand::all()->pluck('name', 'id'));
+            });
         });
     }
 
@@ -134,10 +142,10 @@ class ItemController extends Controller
                 $this->image = $name_image;
 
                 //$form->display('id', 'ID');
-                $form->text('name', 'Наименование');
+                $form->text('name', 'Наименование')->rules('required');
                 $form->ckeditor('text', 'Текст');
                 $form->image('image', 'image')->resize(300, 200)->name($name_image);
-                $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
+                $form->switch('status')->states($this->states)->default(1);
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
             })->tab('Параметры', function(Form $form){
@@ -150,7 +158,7 @@ class ItemController extends Controller
                 $form->hasMany('hard', 'Жосткость', function(Form\NestedForm $form){
                     $form->select('hard_id', 'жосткость')->options(Hard::all()->pluck('name', 'id'));
                 });
-            })->tab('Плайс', function(Form $form){
+            })->tab('Прайс', function(Form $form){
                 $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){
                     $form->select('size_id', 'размер')->options(function(){
                         $arr = [];
@@ -159,7 +167,7 @@ class ItemController extends Controller
                         }
                         return $arr;
                     });
-                    $form->text('price', 'цена');
+                    $form->currency('price', 'цена');
                 });
             });
 
@@ -184,12 +192,20 @@ class ItemController extends Controller
                     $img->resize(150, 100);
                     $img->save($image . '_150x100.jpg');
 //
-                       $img = Image::make($image);
-                      $img->resize(100, 50);
-                      $img->save($image.'_100x50.jpg');
+                    $img = Image::make($image);
+                    $img->resize(100, 50);
+                    $img->save($image.'_100x50.jpg');
 
                 }
             });
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (Item::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

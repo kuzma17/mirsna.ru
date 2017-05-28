@@ -38,8 +38,4 @@ class Item extends Model
         return $this->hasMany(ItemHard::class);
     }
 
-    public static function price_min($id){
-        return Price::where('item_id', $id)->min('price');
-    }
-
 }

@@ -79,15 +79,7 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
     <TR>
         <TD>Высота матраса:</TD><TD>{{ $item->height->name }} см.</TD>
     </TR>
-    <?php
-    //}else{
-    // -- hard --
-  //  $arr_hard_item=$body->hard($_GET['item']);
-   // $hard_item='';
-   // foreach($arr_hard_item as $hard_value){$hard_item.=$hard_value.', ';}
-   // $hard_item=chop($hard_item, ', ');
-    // -----
-    ?>
+
     <TR>
         <TD>Пружинный блок:</TD><TD>{{ $item->spring->name }}</TD>
     </TR>
@@ -107,36 +99,27 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
 
 </table>
 <br>
-<?php
-//if($content['img_set']!=''){
-?>
-<div style="float:right">
-    <img src="images/" /><br>
-</div>
-<?php
-//}
-?>
 
-<?php
-//}
-// include module price
-//if($_GET['brend']==5){
-   // include 'modules/price_item2.php';
-//}elseif($_GET['type']==2){
-  //  include 'modules/price_item3.php';
-//}else{
-  //  include 'modules/price_item1.php';
-//}
-
-?>
-<div id="clear"></div>
-<br>
-<?php
-//if($content['img_bottom']!=''){
-?><div class="content_bottom">
-    <img src="images" /></div>
-<?php
-//}
-?>
-
+    <table class="price" cellspacing="1" cellpadding="1">
+        <tr>
+            <td width="96">Размеры</td>
+            <td colspan="{{ count($item->price) }}">Ширина (мм)</td>
+        </tr>
+        <tr>
+            <td>Длина (мм)</td>
+            @foreach($item->price as $size_x)
+                <th>{{ $size_x->size->x }}</th>
+            @endforeach
+        </tr>
+        @foreach($item->price as $size_y)
+            <tr>
+                <td>{{ $size_x->size->x }}</td>
+                @foreach($item->price as $size_x)
+                    <td>
+                        {{ $arr_price[$size_x->size->x][$size_y->size->y] or '-'}}
+                     </td>
+                @endforeach
+            </tr>
+        @endforeach
+    </table>
 @endsection

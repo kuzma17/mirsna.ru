@@ -11,10 +11,16 @@ use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 use Monolog\Formatter\ScalarFormatter;
+use Request;
 
 class TypeItemController extends Controller
 {
     use ModelForm;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -76,12 +82,7 @@ class TypeItemController extends Controller
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('name', 'Тип');
-            $grid->column('published', 'вкл./откл.')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
@@ -98,11 +99,19 @@ class TypeItemController extends Controller
         return Admin::form(TypeItem::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('name', 'Тип');
-            $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off']);
+            $form->text('name', 'Тип')->rules('required');
+            $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (TypeItem::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }

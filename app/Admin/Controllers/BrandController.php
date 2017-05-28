@@ -10,10 +10,16 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Request;
 
 class BrandController extends Controller
 {
     use ModelForm;
+
+    protected $states = [
+        'on' => ['text' => 'ON', 'color' => 'success'],
+        'off' => ['text' => 'OFF', 'color' => 'danger'],
+    ];
 
     /**
      * Index interface.
@@ -73,15 +79,10 @@ class BrandController extends Controller
     {
         return Admin::grid(Brand::class, function (Grid $grid) {
 
-            $grid->column('id', 'ID')->sortable();
+            //$grid->column('id', 'ID')->sortable();
+            $grid->column('num', 'номер')->sortable();
             $grid->column('name', 'Бренд');
-            $grid->column('num', 'номер');
-            $grid->column('published', 'вкл./откл.')->display(function($id){
-                if($id == 1){
-                    return '<span class="badge bg-green">on</span>';
-                }
-                return '<span class="badge bg-red">off</span>';
-            });
+            $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
@@ -97,13 +98,21 @@ class BrandController extends Controller
     {
         return Admin::form(Brand::class, function (Form $form) {
 
-            $form->display('id', 'ID');
-            $form->text('name', 'Бренд');
-            $form->text('num', 'номер');
-            $form->select('published', 'вкл./откл.')->options([1 => 'On',0 => 'Off',]);
+            //$form->display('id', 'ID');
+            $form->text('name', 'Бренд')->rules('required');
+            $form->number('num', 'номер')->default(Brand::max('num')+1);
+            $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
+    }
+
+    public function release(Request $request)
+    {
+        foreach (Brand::find($request->get('ids')) as $post) {
+            $post->status = $request->get('action');
+            $post->save();
+        }
     }
 }
