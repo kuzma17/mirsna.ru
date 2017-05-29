@@ -21,6 +21,12 @@ var sortitem = $(this).attr('sort');
 	$("form:first").submit();
 	});
 
+	$('button#reset').click(function(){
+		$("select option:selected").each(function(){
+			this.selected=false;
+		});
+	});
+
 $('.list_item').click(function(){
 var urlpage = $(this).attr('urlpage');
 	window.location.href = urlpage;

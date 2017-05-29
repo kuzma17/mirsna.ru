@@ -12,7 +12,7 @@
 @section('content')
 
 <div class="sortseach">
-    сортировать по цене: <A href="#" sort="1"> вниз</A> <A href="#" sort="0">вверх</A>
+    сортировать по цене: <A href="#" sort="desc"> вниз</A> <A href="#" sort="asc">вверх</A>
 </div>
 <div id="both"></div>
 <!-- end module SORT -->
@@ -34,7 +34,7 @@
     <tbody>
     <tr class="head_table"><TD>бренд</TD><TD>модель</TD><TD>размер</TD><TD>высота</TD><TD>пружинный блок</TD><TD>жесткость</TD><TD>макс.вес<br>на место</TD><TD>цена</TD></tr>
     @foreach($items as $item)
-        <tr>
+        <tr onclick="location.href='{{ url('/item/'.$item->id) }}'" class="row_select">
             <td>{{ $item->brand }}</td>
             <TD>{{ $item->name }}</TD>
             <TD>{{ $item->x.' x '.$item->y }}</TD>
@@ -53,4 +53,5 @@
  //   echo '<p style="text-align:center">По Вашему запросу в базе нет матрасов. Попробуйте задать другие параметры.</p>';
 //}
 ?>
+
 @endsection

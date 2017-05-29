@@ -31,7 +31,8 @@ class PriceController extends Controller
 
         if($request->input('size')){
             $query_where .= ' AND prices.size_id = '.$request->input('size');
-            $user_request['size'] = Size::find($request->input('size'))->name;
+            $size_el = Size::find($request->input('size'));
+            $user_request['size'] = $size_el->x.' x '.$size_el->y;
         }
 
         if($request->input('height')){
@@ -90,7 +91,8 @@ class PriceController extends Controller
         )->whereRaw($query_where)
             //->where('items.brand_id', '=', 1)
             //->groupBy('items.id', 'items.name', 'items.text', 'items.image')
-           // ->orderBy('max_price', $order)
+            ->orderBy('prices.price', $request->input('sort'))
+            //->paginate(25);
             ->get();
 
 
