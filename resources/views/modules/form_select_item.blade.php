@@ -2,11 +2,12 @@
 <div class="line2"></div>
 <div class="matress">
     <table cellpadding="1" cellspacing="3">
-        <form name="select" method="POST" action="index.php?id=select">
+        <form name="select" method="POST" action="/select">
+            {{ csrf_field() }}
             <TR>
                 <TD>Бренд:</TD>
                 <td>
-                    <select name="brend">
+                    <select name="brand">
                         <OPTION value="">Не важно</OPTION>
                         @foreach(\App\Brand::where('status', 1)->orderBy('num', 'asc')->get() as $brand)
                             <option value="{{ $brand->id }}" >{{ $brand->name }}</option>
@@ -40,7 +41,7 @@
             <tr>
                 <TD>Пружинный блок:</TD>
                 <td>
-                    <select name="pr_block">
+                    <select name="spring">
                         <OPTION value="">Не важно</OPTION>
                         @foreach(\App\Spring::where('status', 1)->orderBy('num', 'asc')->get() as $spring)
                             <option value="{{ $spring->id }}" >{{ $spring->name }}</option>

@@ -31,7 +31,7 @@
         {!! \Illuminate\Support\Str::words($item->text, 50) !!}
         <div class="sale_box">
             <div style="float:left;margin:5px;margin-left:10px;">
-               цена {{ $item->price->min('price') }} - {{ $item->price->max('price') }} грн.
+               цена {{ $item->min_price }} - {{ $item->max_price }} грн.
             </div>
             <div style="float:left;height:26px;width:14px;background:url(/images/sale3.png) no-repeat;"></div>
         </div>
