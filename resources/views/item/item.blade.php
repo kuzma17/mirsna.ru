@@ -89,8 +89,6 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
 </table>
 <br>
 
-{{ dump($item->itemDiscount) }}
-
 <p><strong>Прайс {{ $item->brand->name or '' }} грн.
         @if($discount)
         с учетом <span style="color:red">акции - {{ $discount }}%</span>';

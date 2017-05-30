@@ -26,3 +26,5 @@ Route::get('/item/{id}', ['as'=>'item', 'uses'=>'ItemController@item']);
 
 Route::post('/select', ['as'=>'select', 'uses'=>'PriceController@select']);
 
+Route::get('/promotion', ['as'=>'promotion', 'uses'=>'PromotionController@promotions']);
+

@@ -19,12 +19,14 @@ class ItemController extends Controller
 
         $items = DB::table('items')
             ->join('prices', 'items.id', '=', 'prices.item_id')
-            ->leftJoin('discounts', 'items.id', '=', 'discounts.item_id')
             ->leftJoin('promotions', function ($join) {
-                $join->on('discounts.promotion_id', '=', 'promotions.id')
-                    ->where('promotions.status', '=', 1)
-                    ->where('promotions.date_from', '=', date("Y-m-d"))
+                $join->where('promotions.status', '=', 1)
+                    ->where('promotions.date_from', '<=', date("Y-m-d"))
                     ->where('promotions.date_to', '>=', date("Y-m-d"));
+            })
+            ->leftJoin('discounts', function ($join){
+                $join->on('items.id', '=', 'discounts.item_id')
+                    ->where('promotions.status', '=', 1);
             })
             ->select(
                 'items.id',
