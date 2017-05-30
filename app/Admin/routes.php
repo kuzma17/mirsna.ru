@@ -24,5 +24,5 @@ Route::group([
     $router->resource('weight', WeightController::class);
     $router->resource('series', SeriesController::class);
     $router->resource('items', ItemController::class);
-
+    $router->resource('promotions', PromotionController::class);
 });

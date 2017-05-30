@@ -143,7 +143,7 @@ class ItemController extends Controller
 
                 //$form->display('id', 'ID');
                 $form->text('name', 'Наименование')->rules('required');
-                $form->ckeditor('text', 'Текст');
+                $form->ckeditor('text', 'Описание продукта');
                 $form->image('image', 'image')->resize(300, 200)->name($name_image);
                 $form->switch('status')->states($this->states)->default(1);
                 $form->display('created_at', 'Created At');
@@ -167,7 +167,7 @@ class ItemController extends Controller
                         }
                         return $arr;
                     });
-                    $form->currency('price', 'цена');
+                    $form->currency('price', 'цена')->symbol('грн.');
                 });
             });
 

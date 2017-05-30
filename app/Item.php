@@ -38,4 +38,8 @@ class Item extends Model
         return $this->hasMany(ItemHard::class);
     }
 
+    public function discount(){
+        return $this->hasOne(Discount::class);
+    }
+
 }

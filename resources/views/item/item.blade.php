@@ -59,23 +59,12 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
 </div>
 @endif
 
-<?php
-//if($discount=$body->discount($_GET['item'])){
-  //  echo '<div class="discount">-'.$discount.'%</div>';
-//}
-?>
+@if($discount)<div class="discount">-{{ $discount }}</div>@endif
 {!! $item->text !!}
 
-<?php
-//if($_GET['type']==1){
-//module settings
-?>
 <div style="clear:both"></div>
 <p><strong>Параметры</strong></p>
 <table class="settings" cellpadding="1" cellspacing="1">
-    <?php
-    //if($_GET['brend']==5 || $_GET['series']==10){
-    ?>
     <TR>
         <TD>Высота матраса:</TD><TD>{{ $item->height->name }} см.</TD>
     </TR>
@@ -100,6 +89,13 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
 </table>
 <br>
 
+{{ dump($item->itemDiscount) }}
+
+<p><strong>Прайс {{ $item->brand->name or '' }} грн.
+        @if($discount)
+        с учетом <span style="color:red">акции - {{ $discount }}%</span>';
+        @endif
+
     <table class="price" cellspacing="1" cellpadding="1">
         <tr>
             <td width="96">Размеры</td>
@@ -116,7 +112,16 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
                 <td>{{ $size_x->size->x }}</td>
                 @foreach($item->price as $size_x)
                     <td>
-                        {{ $arr_price[$size_x->size->x][$size_y->size->y] or '-'}}
+                        @if($discount)
+                            <span style="text-decoration:line-through; color:#8E8E8E">
+                                {{ $arr_price[$size_x->size->x][$size_y->size->y]['price'] or '-'}}
+                            </span><br>
+                            <span style="color: red">
+                                {{ $arr_price[$size_x->size->x][$size_y->size->y]['price2'] or ''}}
+                            </span>
+                        @else
+                        {{ $arr_price[$size_x->size->x][$size_y->size->y]['price'] or '-'}}
+                        @endif
                      </td>
                 @endforeach
             </tr>
