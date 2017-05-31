@@ -49,15 +49,27 @@ class ItemController extends Controller
 
         $discount = $this->discount($id);
 
+        $arr_x = array();
+        $arr_y = array();
         $arr_price = array();
+
         foreach(Price::where('item_id', $item->id)->get() as $price){
+
+            if(!in_array($price->size->x, $arr_x)){
+                $arr_x[] = $price->size->x;
+            }
+
+            if(!in_array($price->size->y, $arr_y)){
+                $arr_y[] = $price->size->y;
+            }
+
             $arr_price[$price->size->x][$price->size->y]['price'] = $price->price;
             if($discount){
                 $arr_price[$price->size->x][$price->size->y]['price2'] = $price->price - (($price->price / 100) * $discount);
             }
         }
 
-        return view('item.item', ['item' => $item, 'arr_price' => $arr_price, 'discount'=>$discount]);
+        return view('item.item', ['item' => $item, 'arr_x'=>$arr_x, 'arr_y'=>$arr_y, 'arr_price' => $arr_price, 'discount'=>$discount]);
     }
 
     public function discount($id){

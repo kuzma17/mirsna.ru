@@ -97,28 +97,28 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
     <table class="price" cellspacing="1" cellpadding="1">
         <tr>
             <td width="96">Размеры</td>
-            <td colspan="{{ count($item->price) }}">Ширина (мм)</td>
+            <td colspan="{{ count($arr_x) }}">Ширина (мм)</td>
         </tr>
         <tr>
             <td>Длина (мм)</td>
-            @foreach($item->price as $size_x)
-                <th>{{ $size_x->size->x }}</th>
+            @foreach($arr_x as $x)
+                <td>{{ $x }}</td>
             @endforeach
         </tr>
-        @foreach($item->price as $size_y)
+        @foreach($arr_y as $y)
             <tr>
-                <td>{{ $size_x->size->x }}</td>
-                @foreach($item->price as $size_x)
+                <td>{{ $y }}</td>
+                @foreach($arr_x as $x)
                     <td>
                         @if($discount)
                             <span style="text-decoration:line-through; color:#8E8E8E">
-                                {{ $arr_price[$size_x->size->x][$size_y->size->y]['price'] or '-'}}
+                                {{ $arr_price[$x][$y]['price'] or '-'}}
                             </span><br>
                             <span style="color: red">
-                                {{ $arr_price[$size_x->size->x][$size_y->size->y]['price2'] or ''}}
+                                {{ $arr_price[$x][$y]['price2'] or ''}}
                             </span>
                         @else
-                        {{ $arr_price[$size_x->size->x][$size_y->size->y]['price'] or '-'}}
+                        {{ $arr_price[$x][$y]['price'] or '-'}}
                         @endif
                      </td>
                 @endforeach
