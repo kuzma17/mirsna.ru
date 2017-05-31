@@ -71,7 +71,16 @@ class PriceController extends Controller
             ->join('sizes', 'prices.size_id', '=', 'sizes.id')
             ->join('heights', 'items.height_id', '=', 'heights.id')
             ->join('springs', 'items.spring_id', '=', 'springs.id')
-            ->join('weights', 'items.weight_id', '=', 'weights.id');
+            ->join('weights', 'items.weight_id', '=', 'weights.id')
+            ->leftJoin('promotions', function ($join) {
+                $join->where('promotions.status', '=', 1)
+                    ->where('promotions.date_from', '<=', date("Y-m-d"))
+                    ->where('promotions.date_to', '>=', date("Y-m-d"));
+            })
+            ->leftJoin('discounts', function ($join){
+                $join->on('items.id', '=', 'discounts.item_id')
+                    ->where('promotions.status', '=', 1);
+            });
 
         if($request->hard) {
             $items->join('item_hard', 'items.id', '=', 'item_hard.item_id')
@@ -82,6 +91,7 @@ class PriceController extends Controller
             'items.id',
             'items.name',
             'prices.price',
+            'discounts.discount',
             'brands.name AS brand',
             'sizes.x',
             'sizes.y',
