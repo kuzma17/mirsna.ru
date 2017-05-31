@@ -75,7 +75,7 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
     <TR>
         <TD>Степень жесткости:</TD><TD>
             @foreach($item->hard as $hard)
-                {{ $hard->hard->name }}
+                {{ $hard->name }}
             @endforeach
         </TD>
     </TR>

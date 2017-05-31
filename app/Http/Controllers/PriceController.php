@@ -46,7 +46,7 @@ class PriceController extends Controller
         }
 
         if($request->input('hard')){
-            $query_where .= ' AND item_hard.hard_id = '.$request->input('hard');
+            $query_where .= ' AND hard_item.hard_id = '.$request->input('hard');
             $user_request['hard'] = Hard::find($request->input('hard'))->name;
         }
 
@@ -83,8 +83,8 @@ class PriceController extends Controller
             });
 
         if($request->hard) {
-            $items->join('item_hard', 'items.id', '=', 'item_hard.item_id')
-                ->join('hards', 'item_hard.hard_id', '=', 'hards.id');
+            $items->join('hard_item', 'items.id', '=', 'hard_item.item_id')
+                ->join('hards', 'hard_item.hard_id', '=', 'hards.id');
         }
 
         $items = $items->select(
@@ -111,8 +111,8 @@ class PriceController extends Controller
 
     public static function hard($id){
         $str_hard = '';
-        foreach(ItemHard::where('item_id', $id)->get() as $hard){
-            $str_hard .= $hard->hard->name.' ';
+        foreach(Item::find($id)->hard as $hard){
+            $str_hard .= $hard->name.' ';
         }
 
         return $str_hard;

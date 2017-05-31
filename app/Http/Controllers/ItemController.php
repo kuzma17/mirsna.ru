@@ -62,9 +62,11 @@ class ItemController extends Controller
 
     public function discount($id){
         $discount = Item::find($id)->discount;
-        $promotion = $discount->promotion;
-        if($promotion->status == 1 && strtotime($promotion->date_from) <= strtotime(date("Y-m-d")) && strtotime(date("Y-m-d")) <= strtotime($promotion->date_to)){
-            return $discount->discount;
+        if($discount) {
+            $promotion = $discount->promotion;
+            if ($promotion->status == 1 && strtotime($promotion->date_from) <= strtotime(date("Y-m-d")) && strtotime(date("Y-m-d")) <= strtotime($promotion->date_to)) {
+                return $discount->discount;
+            }
         }
         return false;
     }

@@ -9,6 +9,7 @@ class CKEditor extends Field
     public static $js = [
         '/packages/ckeditor/ckeditor.js',
         '/packages/ckeditor/adapters/jquery.js',
+        //'/js/my_script.js',
     ];
 
     protected $view = 'admin.ckeditor';

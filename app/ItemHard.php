@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemHard extends Model
 {
-    protected $table = 'item_hard';
+    protected $table = 'hard_item';
 
     protected $fillable = ['item_id', 'hard_id'];
 
-    public function hard(){
-        return $this->belongsTo(Hard::class);
-    }
+    //public function hard(){
+    //    return $this->belongsTo(Hard::class);
+   // }
 }

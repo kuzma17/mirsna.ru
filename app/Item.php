@@ -35,7 +35,7 @@ class Item extends Model
     }
 
     public function hard(){
-        return $this->hasMany(ItemHard::class);
+        return $this->belongsToMany(Hard::class);
     }
 
     public function discount(){

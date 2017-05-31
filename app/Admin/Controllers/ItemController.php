@@ -155,9 +155,7 @@ class ItemController extends Controller
                 $form->select('spring_id', 'Пружинный блок')->options(Spring::all()->pluck('name', 'id'));
                 $form->select('height_id', 'Высота')->options(Height::all()->pluck('name', 'id'));
                 $form->select('weight_id', 'Вес на м')->options(Weight::all()->pluck('name', 'id'));
-                $form->hasMany('hard', 'Жосткость', function(Form\NestedForm $form){
-                    $form->select('hard_id', 'жосткость')->options(Hard::all()->pluck('name', 'id'));
-                });
+                $form->multipleSelect('hard', 'Жосткость')->options(Hard::all()->pluck('name', 'id'))->placeholder('Жосткость');
             })->tab('Прайс', function(Form $form){
                 $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){
                     $form->select('size_id', 'размер')->options(function(){
