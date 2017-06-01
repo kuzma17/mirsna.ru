@@ -9,6 +9,40 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <style>
+        /* styles unrelated to zoom */
+
+        p.cl { position:absolute; top:3px; right:28px; color:#555; font:bold 13px/1 sans-serif;}
+
+        /* these styles are for the demo, but are not required for the plugin */
+        .zoom_img {
+            display:inline-block;
+            position: relative;
+        }
+
+        /* magnifying glass icon */
+        .zoom_img:after {
+            content:'';
+            display:block;
+            width:33px;
+            height:33px;
+            position:absolute;
+            top:0;
+            right:0;
+            background:url(icon.png);
+        }
+
+        .zoom_img img {
+            display: block;
+        }
+
+        .zoom_img img::selection { background-color: transparent; }
+
+        #ex2 img:hover { cursor: url(grab.cur), default; }
+        #ex2 img:active { cursor: url(grabbed.cur), default; }
+    </style>
+
 <h2 style="color:#3399FF">{{ $item->name }}</h2>
 <div class="floating"></div>
 <div style="width:410px;float:right">
@@ -46,12 +80,8 @@ text-align:center;
 </div>
 
 @if($item->image)
-<div class="zoom_img">
-    <a href="{{ url('/upload/'.$item->image) }}" id="zoom1" class="cloud-zoom" rel="position: 'inside' , showTitle: false, adjustX:0, adjustY:0" style=""><img src="{{ url('/upload/'.$item->image.'_150x100.jpg') }}" alt="Active Flex" title="Active Flex" style="width:300px;" /> </a>
-    <div style="font-family:sans-serif;
-font-size:8px;
-color:#646464;
-float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> zoom image</div>
+<div class="zoom_img" id='ex1'>
+    <img src="{{ url('/upload/'.$item->image) }}" title="" style="width:200px; height: 150px" />
 </div>
 @endif
 

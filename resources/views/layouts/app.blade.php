@@ -115,9 +115,15 @@
 <script src="/js/app.js"></script>
 
 <script src="/js/wowslider.js"></script>
-<script src="/js/cloud-zoom.js"></script>
+<script src="/js/jquery.zoom.min.js"></script>
 
 <script src="/js/script.js"></script>
 <script src="/js/script-site.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#ex1').zoom();
+    });
+</script>
 </body>
 </html>
