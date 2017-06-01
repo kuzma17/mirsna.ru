@@ -34,6 +34,10 @@ class Item extends Model
         return $this->hasMany(Price::class);
     }
 
+    public function custom_price(){
+        return $this->hasOne(CustomPrice::class);
+    }
+
     public function hard(){
         return $this->belongsToMany(Hard::class);
     }

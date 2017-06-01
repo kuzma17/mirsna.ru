@@ -5,17 +5,17 @@ return [
     /*
      * Laravel-admin name.
      */
-    'name'      => 'Laravel-admin',
+    'name'      => 'Admin-panel',
 
     /*
      * Logo in admin panel header.
      */
-    'logo'      => '<b>Laravel</b> admin',
+    'logo'      => '<b>Admin</b> panel',
 
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>Ap</b>',
 
     /*
      * Laravel-admin url prefix.
@@ -103,7 +103,7 @@ return [
     |               | skin-green                              |
     |---------------------------------------------------------|
      */
-    'skin'    => 'skin-blue',
+    'skin'    => 'skin-yellow',
 
     /*
     |---------------------------------------------------------|

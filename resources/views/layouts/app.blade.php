@@ -87,7 +87,6 @@
                         <div id="clear"></div>
                     </div>
                 </div>
-                @include('modules.slideshow')
 
                 <div >
                     @yield('content')

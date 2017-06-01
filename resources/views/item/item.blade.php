@@ -45,10 +45,6 @@ text-align:center;
     </div>
 </div>
 
-<?php //$content=$body->item($_GET['item']);
-//if($content['img_zoom_big']!='' && $content['img_zoom']!=''){
-?>
-
 @if($item->image)
 <div class="zoom_img">
     <a href="{{ url('/upload/'.$item->image) }}" id="zoom1" class="cloud-zoom" rel="position: 'inside' , showTitle: false, adjustX:0, adjustY:0" style=""><img src="{{ url('/upload/'.$item->image.'_150x100.jpg') }}" alt="Active Flex" title="Active Flex" style="width:300px;" /> </a>
@@ -124,5 +120,12 @@ float:right;margin-right:5px;"><img src="/images/zoom.png" style="float:left"> z
                 @endforeach
             </tr>
         @endforeach
+        @if(isset($item->custom_price))
+            <tr>
+                <td colspan="{{ count($arr_x) + 1 }}">
+                    Нестандартный размер (стоимость за 1 кв. м.) - {{ $item->custom_price->price }}
+                </td>
+            </tr>
+        @endif
     </table>
 @endsection

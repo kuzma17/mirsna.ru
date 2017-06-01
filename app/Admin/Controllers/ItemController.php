@@ -167,6 +167,8 @@ class ItemController extends Controller
                     });
                     $form->currency('price', 'цена')->symbol('грн.');
                 });
+                $form->html("<hr><h4 style='margin-left:-250px;margin-bottom: 0px'>Нестандартный размер</h4>");
+                $form->currency('custom_price.price', 'стоимость за 1 кв. м.')->symbol('грн.');
             });
 
             $form->saved(function (Form $form){
