@@ -375,10 +375,37 @@ margin:5px 10px 5px 0px;
 float:left;
 border: 1px #CCCCCC solid;
 width:305px;
+	cursor: move;
 }
 .zoom_img img{
 border:0;
 }
+
+.zoom_img {
+	display:inline-block;
+	position: relative;
+}
+
+/* magnifying glass icon */
+.zoom_img:after {
+	content:'';
+	display:block;
+	width:33px;
+	height:33px;
+	position:absolute;
+	top:0;
+	right:0;
+	background:url(../images/icon.png);
+}
+
+.zoom_img img {
+	display: block;
+}
+.zoom_img img::selection { background-color: transparent; }
+
+#ex1 img:hover { cursor: url(../images/grab.cur), default; }
+#ex1 img:active { cursor: url(../images/grabbed.cur), default; }
+
 .item_img_top{
 float:left;
 border: 1px #CCCCCC solid;

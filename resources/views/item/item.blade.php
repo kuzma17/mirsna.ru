@@ -10,39 +10,6 @@
 
 @section('content')
 
-    <style>
-        /* styles unrelated to zoom */
-
-        p.cl { position:absolute; top:3px; right:28px; color:#555; font:bold 13px/1 sans-serif;}
-
-        /* these styles are for the demo, but are not required for the plugin */
-        .zoom_img {
-            display:inline-block;
-            position: relative;
-        }
-
-        /* magnifying glass icon */
-        .zoom_img:after {
-            content:'';
-            display:block;
-            width:33px;
-            height:33px;
-            position:absolute;
-            top:0;
-            right:0;
-            background:url(icon.png);
-        }
-
-        .zoom_img img {
-            display: block;
-        }
-
-        .zoom_img img::selection { background-color: transparent; }
-
-        #ex2 img:hover { cursor: url(grab.cur), default; }
-        #ex2 img:active { cursor: url(grabbed.cur), default; }
-    </style>
-
 <h2 style="color:#3399FF">{{ $item->name }}</h2>
 <div class="floating"></div>
 <div style="width:410px;float:right">
@@ -81,7 +48,7 @@ text-align:center;
 
 @if($item->image)
 <div class="zoom_img" id='ex1'>
-    <img src="{{ url('/upload/'.$item->image) }}" title="" style="width:200px; height: 150px" />
+    <img src="{{ url('/upload/'.$item->image) }}" title="" style="width: 300px; height: 200px;" />
 </div>
 @endif
 
@@ -153,7 +120,17 @@ text-align:center;
         @if(isset($item->custom_price))
             <tr>
                 <td colspan="{{ count($arr_x) + 1 }}">
-                    Нестандартный размер (стоимость за 1 кв. м.) - {{ $item->custom_price->price }}
+                    Нестандартный размер (стоимость за 1 кв. м.) -
+                    @if($discount)
+                        <span style="text-decoration:line-through; color:#8E8E8E">
+                               {{ $item->custom_price->price }}
+                        </span>
+                         <span style="color: red">
+                                {{ $item->custom_price->price - (($item->custom_price->price / 100) * $discount) }}
+                        </span>
+                    @else
+                        {{ $item->custom_price->price }}
+                    @endif
                 </td>
             </tr>
         @endif

@@ -95,7 +95,7 @@ class ItemController extends Controller
             $grid->column('name', 'Наименование');
             //$grid->column('image', 'image')->image($this->image, 50);
             $grid->column('image', 'image')->display(function ($img){
-                return '<img src="/upload/'.$img.'_100x50.jpg" style="width:50px; height:30px">';
+                return '<img src="/upload/'.$img.'_small.jpg" style="width:50px; height:30px">';
             });
             $grid->column('type_item.name', 'Тип');
             $grid->column('brand.name', 'Бренд');
@@ -144,7 +144,7 @@ class ItemController extends Controller
                 //$form->display('id', 'ID');
                 $form->text('name', 'Наименование')->rules('required');
                 $form->ckeditor('text', 'Описание продукта');
-                $form->image('image', 'image')->resize(300, 200)->name($name_image);
+                $form->image('image', 'image')->resize(650, 400)->name($name_image);
                 $form->switch('status')->states($this->states)->default(1);
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
@@ -184,18 +184,9 @@ class ItemController extends Controller
 
                     $image = $path . $image;
 
-                    // $img = Image::make($image);
-                    //  $img->resize(100, 100);
-                    //  $img->save($image.'_100x100.jpg');
-
                     $img = Image::make($image);
-                    $img->resize(150, 100);
-                    $img->save($image . '_150x100.jpg');
-//
-                    $img = Image::make($image);
-                    $img->resize(100, 50);
-                    $img->save($image.'_100x50.jpg');
-
+                    $img->resize(140, 92);
+                    $img->save($image . '_small.jpg');
                 }
             });
         });

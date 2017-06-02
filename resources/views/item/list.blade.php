@@ -13,10 +13,6 @@
 сортировать по цене: <a href="/item/list/sort/desc"> вниз</a> <A href="/item/list/sort/asc">вверх</A>
 </div>
 
-
-
-
-
     <div id="clear"></div>
 
 @foreach ($items as $item)
@@ -25,7 +21,7 @@
         <h3>{{ $item->name }}</h3>
         <div style="width:145px;float:left;margin-right:10px">
             @if($item->image)
-                <img src="{{ url('/upload/'.$item->image.'_100x50.jpg') }}">
+                <img src="{{ url('/upload/'.$item->image.'_small.jpg') }}">
             @endif
             @if($item->discount)
                     <div class="discount_list">-{{ $item->discount }}</div>
