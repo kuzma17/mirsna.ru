@@ -80,7 +80,7 @@ class MenuController extends Controller
         return Admin::grid(Menu::class, function (Grid $grid) {
 
             $grid->column('id', 'ID')->sortable();
-            $grid->column('id', 'Название');
+            $grid->column('title', 'Название');
             $grid->column('url', 'url');
             $grid->column('num', 'Номер по порядку');
             $grid->column('status', 'Статус')->switch($this->states);
@@ -106,7 +106,7 @@ class MenuController extends Controller
             $form->switch('status')->states($this->states)->default(1);
 
             //$form->display('created_at', 'Created At');
-            //$form->display('updated_at', 'Updated At');
+            $form->display('updated_at', 'Updated At');
         });
     }
 
