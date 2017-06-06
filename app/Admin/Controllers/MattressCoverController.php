@@ -136,7 +136,7 @@ class MattressCoverController extends Controller
                 //$form->display('id', 'ID');
                 $form->hidden('type_item_id')->value(4);
                 $form->text('name', 'Наименование')->rules('required');
-                $form->select('brand_id', 'Тип')->options(Brand::all()->pluck('name', 'id'));
+                $form->select('brand_id', 'Бренд')->options(Brand::all()->pluck('name', 'id'));
                 $form->ckeditor('text', 'Описание продукта');
                 $form->image('image', 'image')->resize(650, 400)->name($name_image);
                 $form->switch('status')->states($this->states)->default(1);

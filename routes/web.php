@@ -23,6 +23,7 @@ Route::get('/item/list', ['as'=>'listItem', 'uses'=>'ItemController@listItem']);
 
 Route::get('/item/list/sort/{order}', ['as'=>'listItemSort', 'uses'=>'ItemController@listItem']);
 Route::get('/item/{id}', ['as'=>'item', 'uses'=>'ItemController@item']);
+Route::get('/item/type/2/{id}', ['as'=>'item2', 'uses'=>'ItemController@item2']);
 
 Route::post('/select', ['as'=>'select', 'uses'=>'PriceController@select']);
 

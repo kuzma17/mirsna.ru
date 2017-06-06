@@ -72,6 +72,13 @@ class ItemController extends Controller
         return view('item.item', ['item' => $item, 'arr_x'=>$arr_x, 'arr_y'=>$arr_y, 'arr_price' => $arr_price, 'discount'=>$discount]);
     }
 
+    public function item2($id){
+        $item = Item::find($id);
+        $discount = $this->discount($id);
+
+        return view('item.item', ['item' => $item, 'discount'=>$discount]);
+    }
+
     public function discount($id){
         $discount = Item::find($id)->discount;
         if($discount) {

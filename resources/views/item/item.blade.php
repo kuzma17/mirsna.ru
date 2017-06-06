@@ -56,15 +56,20 @@ text-align:center;
 {!! $item->text !!}
 
 <div style="clear:both"></div>
+@if(isset($item->height->name) || isset($item->spring->name) || isset($item->hard) || isset($item->height->name) || isset($item->weight->name))
 <p><strong>Параметры</strong></p>
 <table class="settings" cellpadding="1" cellspacing="1">
+    @if(isset($item->height->name))
     <TR>
         <TD>Высота матраса:</TD><TD>{{ $item->height->name }} см.</TD>
     </TR>
-
+    @endif
+    @if(isset($item->spring->name))
     <TR>
         <TD>Пружинный блок:</TD><TD>{{ $item->spring->name }}</TD>
     </TR>
+        @endif
+        @if(isset($item->hard) && count($item->hard) > 0)
     <TR>
         <TD>Степень жесткости:</TD><TD>
             @foreach($item->hard as $hard)
@@ -72,67 +77,31 @@ text-align:center;
             @endforeach
         </TD>
     </TR>
+        @endif
+        @if(isset($item->height->name))
     <TR>
         <TD>Высота матраса:</TD><TD>{{ $item->height->name }} см.</TD>
     </TR>
+        @endif
+        @if(isset($item->weight->name))
     <TR>
         <TD>Макс. вес на спальное место:</TD><TD>{{ $item->weight->name }} кг.</TD>
     </TR>
+            @endif
 
 </table>
+@endif
 <br>
 
 <p><strong>Прайс {{ $item->brand->name or '' }} грн.
         @if($discount)
         с учетом <span style="color:red">акции - {{ $discount }}%</span>';
         @endif
+    @if($item->type_item_id == 2)
+    @include('item.table2')
+    @else
+    @include('item.table1')
+    @endif
 
-    <table class="price" cellspacing="1" cellpadding="1">
-        <tr>
-            <td width="96">Размеры</td>
-            <td colspan="{{ count($arr_x) }}">Ширина (мм)</td>
-        </tr>
-        <tr>
-            <td>Длина (мм)</td>
-            @foreach($arr_x as $x)
-                <td>{{ $x }}</td>
-            @endforeach
-        </tr>
-        @foreach($arr_y as $y)
-            <tr>
-                <td>{{ $y }}</td>
-                @foreach($arr_x as $x)
-                    <td>
-                        @if($discount)
-                            <span style="text-decoration:line-through; color:#8E8E8E">
-                                {{ $arr_price[$x][$y]['price'] or '-'}}
-                            </span><br>
-                            <span style="color: red">
-                                {{ $arr_price[$x][$y]['price2'] or ''}}
-                            </span>
-                        @else
-                        {{ $arr_price[$x][$y]['price'] or '-'}}
-                        @endif
-                     </td>
-                @endforeach
-            </tr>
-        @endforeach
-        @if(isset($item->custom_price))
-            <tr>
-                <td colspan="{{ count($arr_x) + 1 }}">
-                    Нестандартный размер (стоимость за 1 кв. м.) -
-                    @if($discount)
-                        <span style="text-decoration:line-through; color:#8E8E8E">
-                               {{ $item->custom_price->price }}
-                        </span>
-                         <span style="color: red">
-                                {{ $item->custom_price->price - (($item->custom_price->price / 100) * $discount) }}
-                        </span>
-                    @else
-                        {{ $item->custom_price->price }}
-                    @endif
-                </td>
-            </tr>
-        @endif
-    </table>
+
 @endsection

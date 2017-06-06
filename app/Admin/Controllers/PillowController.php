@@ -135,15 +135,15 @@ class PillowController extends Controller
             $form->text('name', 'Наименование')->rules('required');
             $form->ckeditor('text', 'Описание продукта');
             $form->image('image', 'image')->resize(650, 400)->name($name_image);
-            $form->select('brand_id', 'Тип')->options(Brand::all()->pluck('name', 'id'));
-            $form->select('price_pillow.size_pillow_id')->options(function(){
+            $form->select('brand_id', 'Бренд')->options(Brand::all()->pluck('name', 'id'));
+            $form->select('price_pillow.size_pillow_id', 'Размер')->options(function(){
                 $arr = [];
                 foreach(SizePillow::all() as $size){
                     $arr[$size->id] = $size->x.' x '.$size->y.' x '.$size->h;
                 }
                 return $arr;
-            });;
-            $form->currency('price_pillow.price', 'Цена')->symbol('грн.');
+            });
+            $form->currency('price_pillow.price', 'Цена')->symbol('грн.')->rules('required');
             $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');

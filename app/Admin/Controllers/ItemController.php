@@ -150,7 +150,7 @@ class ItemController extends Controller
                 $form->display('updated_at', 'Updated At');
             })->tab('Параметры', function(Form $form){
                 $form->select('type_item_id', 'Тип')->options(TypeItem::all()->pluck('name', 'id'));
-                $form->select('brand_id', 'Тип')->options(Brand::all()->pluck('name', 'id'));
+                $form->select('brand_id', 'Бренд')->options(Brand::all()->pluck('name', 'id'));
                 $form->select('series_id', 'Серия')->options(Series::all()->pluck('name', 'id'));
                 $form->select('spring_id', 'Пружинный блок')->options(Spring::all()->pluck('name', 'id'));
                 $form->select('height_id', 'Высота')->options(Height::all()->pluck('name', 'id'));
