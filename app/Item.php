@@ -34,6 +34,14 @@ class Item extends Model
         return $this->hasMany(Price::class);
     }
 
+    public function price_pillow(){
+        return $this->hasOne(PricePillow::class);
+    }
+
+    public function price_mattress_cover(){
+        return $this->hasMany(PriceMattressCover::class);
+    }
+
     public function custom_price(){
         return $this->hasOne(CustomPrice::class);
     }

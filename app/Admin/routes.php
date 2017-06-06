@@ -18,11 +18,14 @@ Route::group([
     $router->resource('typeitem', TypeItemController::class);
     $router->resource('brands', BrandController::class);
     $router->resource('size', SizeController::class);
+    $router->resource('sizepillows', SizePillowController::class);
     $router->resource('height', HeightController::class);
     $router->resource('hard', HardController::class);
     $router->resource('spring', SpringController::class);
     $router->resource('weight', WeightController::class);
     $router->resource('series', SeriesController::class);
     $router->resource('items', ItemController::class);
+    $router->resource('pillows', PillowController::class);
+    $router->resource('mattresscovers', MattressCoverController::class);
     $router->resource('promotions', PromotionController::class);
 });

@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Size;
+use App\SizePillow;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 use Request;
 
-class SizeController extends Controller
+class SizePillowController extends Controller
 {
     use ModelForm;
 
@@ -77,13 +77,14 @@ class SizeController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(Size::class, function (Grid $grid) {
+        return Admin::grid(SizePillow::class, function (Grid $grid) {
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('x', 'Ширина');
             $grid->column('y', 'Длинна');
+            $grid->column('h', 'Высота');
             $grid->column('Размер')->display(function(){
-                return '<span class="badge bg-grey">'.$this->x.' x '.$this->y.'</span>';
+                return '<span class="badge bg-grey">'.$this->x.' x '.$this->y.' x '.$this->h.'</span>';
             });
             $grid->column('num', 'номер');
             $grid->column('status', 'Статус')->switch($this->states);
@@ -100,12 +101,13 @@ class SizeController extends Controller
      */
     protected function form()
     {
-        return Admin::form(Size::class, function (Form $form) {
+        return Admin::form(SizePillow::class, function (Form $form) {
 
             $form->display('id', 'ID');
             $form->text('x', 'Ширина')->rules('required');
             $form->text('y', 'Длинна')->rules('required');
-            $form->number('num', 'Номер по порядку')->default(Size::max('num')+1);
+            $form->text('h', 'высота')->rules('required');
+            $form->number('num', 'Номер по порядку')->default(SizePillow::max('num')+1);
             $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
@@ -115,7 +117,7 @@ class SizeController extends Controller
 
     public function release(Request $request)
     {
-        foreach (Size::find($request->get('ids')) as $post) {
+        foreach (SizePillow::find($request->get('ids')) as $post) {
             $post->status = $request->get('action');
             $post->save();
         }
