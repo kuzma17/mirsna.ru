@@ -27,5 +27,8 @@ Route::group([
     $router->resource('items', ItemController::class);
     $router->resource('pillows', PillowController::class);
     $router->resource('mattresscovers', MattressCoverController::class);
+    $router->resource('slatteds', SlattedController::class);
+    $router->resource('beds', BedController::class);
+    $router->resource('mattress', MattressController::class);
     $router->resource('promotions', PromotionController::class);
 });
