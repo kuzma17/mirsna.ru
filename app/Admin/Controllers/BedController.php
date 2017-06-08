@@ -136,7 +136,11 @@ class BedController extends Controller
                 //$form->display('id', 'ID');
                 $form->hidden('type_item_id')->value(5);
                 $form->text('name', 'Наименование')->rules('required');
-                $form->select('brand_id', 'Бренд')->options(Brand::all()->pluck('name', 'id'));
+                $form->select('brand_id', 'Бренд')->options(function(){
+                    $arr = Brand::where('status', 1)->get()->pluck('name', 'id');
+                    $arr[0] = ' - ';
+                    return $arr;
+                });
                 $form->ckeditor('text', 'Описание продукта');
                 $form->image('image', 'image')->resize(650, 400)->name($name_image);
                 $form->switch('status')->states($this->states)->default(1);

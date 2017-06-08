@@ -143,11 +143,27 @@ class MattressController extends Controller
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
             })->tab('Параметры', function(Form $form){
-                $form->select('brand_id', 'Бренд')->options(Brand::all()->pluck('name', 'id'));
+                $form->select('brand_id', 'Бренд')->options(function(){
+                    $arr = Brand::where('status', 1)->get()->pluck('name', 'id');
+                    $arr[0] = ' - ';
+                    return $arr;
+                });
                 $form->select('series_id', 'Серия')->options(Series::all()->pluck('name', 'id'));
-                $form->select('spring_id', 'Пружинный блок')->options(Spring::all()->pluck('name', 'id'));
-                $form->select('height_id', 'Высота')->options(Height::all()->pluck('name', 'id'));
-                $form->select('weight_id', 'Вес на м')->options(Weight::all()->pluck('name', 'id'));
+                $form->select('spring_id', 'Пружинный блок')->options(function(){
+                    $arr = Spring::where('status', 1)->get()->pluck('name', 'id');
+                    $arr[0] = ' - ';
+                    return $arr;
+                });
+                $form->select('height_id', 'Высота')->options(function(){
+                    $arr = Height::where('status', 1)->get()->pluck('name', 'id');
+                    $arr[0] = ' - ';
+                    return $arr;
+                });
+                $form->select('weight_id', 'Вес на м')->options(function(){
+                    $arr = Weight::where('status', 1)->get()->pluck('name', 'id');
+                    $arr[0] = ' - ';
+                    return $arr;
+                });
                 $form->multipleSelect('hard', 'Жосткость')->options(Hard::all()->pluck('name', 'id'))->placeholder('Жосткость');
             })->tab('Прайс', function(Form $form){
                 $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){

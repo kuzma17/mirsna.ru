@@ -78,11 +78,6 @@ text-align:center;
         </TD>
     </TR>
         @endif
-        @if(isset($item->height->name))
-    <TR>
-        <TD>Высота матраса:</TD><TD>{{ $item->height->name }} см.</TD>
-    </TR>
-        @endif
         @if(isset($item->weight->name))
     <TR>
         <TD>Макс. вес на спальное место:</TD><TD>{{ $item->weight->name }} кг.</TD>
