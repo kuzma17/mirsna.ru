@@ -31,4 +31,5 @@ Route::group([
     $router->resource('beds', BedController::class);
     $router->resource('mattress', MattressController::class);
     $router->resource('promotions', PromotionController::class);
+    $router->resource('banners', BannerController::class);
 });
