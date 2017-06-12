@@ -80,9 +80,11 @@ class CategoryController extends Controller
     {
         return Admin::grid(Category::class, function (Grid $grid) {
 
-            $grid->model()->where('id', '>', 1); // пропускаем 1 элемент
-           // $grid->column('id', 'ID')->sortable();
+            $grid->column('id', 'ID')->sortable();
             $grid->column('parent_id', 'Родительская категория')->display(function($id){
+                if($id == 0){
+                    return 'root';
+                }
                 return Category::find($id)->title;
             });
             $grid->column('title', 'Название');
@@ -105,7 +107,14 @@ class CategoryController extends Controller
         return Admin::form(Category::class, function (Form $form) {
 
            // $form->display('id', 'ID');
-            $form->select('parent_id', 'Родительская категория')->options(Category::all()->pluck('title', 'id'));
+            $form->select('parent_id', 'Родительская категория')->options(function(){
+                $arrs = Category::where('status', 1)->get();
+                $arr[0] = '0 root';
+                foreach ($arrs as $el){
+                    $arr[$el->id] = $el->id.' '.$el->title;
+                }
+                return $arr;
+            });
             $form->text('title', 'Название')->rules('required');
             $form->text('url', 'Ссилка');
             $form->number('num', 'Номер по порядку')->default(Category::max('num') + 1);

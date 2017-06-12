@@ -62,4 +62,8 @@ class Item extends Model
         return $this->hasOne(Discount::class);
     }
 
+    public function set_mattress(){
+        return $this->hasOne(SetMattress::class);
+    }
+
 }

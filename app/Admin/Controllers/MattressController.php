@@ -6,7 +6,6 @@ use App\Brand;
 use App\Hard;
 use App\Height;
 use App\Item;
-use App\Items;
 
 use App\Series;
 use App\Size;
@@ -148,7 +147,11 @@ class MattressController extends Controller
                     $arr[0] = ' - ';
                     return $arr;
                 });
-                $form->select('series_id', 'Серия')->options(Series::all()->pluck('name', 'id'));
+                $form->select('series_id', 'Серия')->options(function(){
+                    $arr = Series::where('status', 1)->get()->pluck('name', 'id');
+                    $arr[0] = ' - ';
+                    return $arr;
+                });
                 $form->select('spring_id', 'Пружинный блок')->options(function(){
                     $arr = Spring::where('status', 1)->get()->pluck('name', 'id');
                     $arr[0] = ' - ';
