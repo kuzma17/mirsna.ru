@@ -96,6 +96,8 @@ class BannerController extends Controller
 
             $grid->created_at();
             $grid->updated_at();
+            $grid->disableExport();
+
         });
     }
 

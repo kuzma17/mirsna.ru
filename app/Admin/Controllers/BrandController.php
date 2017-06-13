@@ -79,13 +79,14 @@ class BrandController extends Controller
     {
         return Admin::grid(Brand::class, function (Grid $grid) {
 
-            //$grid->column('id', 'ID')->sortable();
-            $grid->column('num', 'номер')->sortable();
+            $grid->column('id', 'ID')->sortable();
             $grid->column('name', 'Бренд');
+            $grid->column('num', 'номер')->sortable();
             $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
+            $grid->disableExport();
         });
     }
 
@@ -98,7 +99,7 @@ class BrandController extends Controller
     {
         return Admin::form(Brand::class, function (Form $form) {
 
-            //$form->display('id', 'ID');
+            $form->display('id', 'ID');
             $form->text('name', 'Бренд')->rules('required');
             $form->number('num', 'номер')->default(Brand::max('num')+1);
             $form->switch('status')->states($this->states)->default(1);

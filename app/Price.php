@@ -11,4 +11,5 @@ class Price extends Model
     public function size(){
         return $this->belongsTo(Size::class);
     }
+
 }

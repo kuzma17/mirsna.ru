@@ -102,6 +102,13 @@ class MattressController extends Controller
 
             //$grid->created_at();
             $grid->updated_at();
+            $grid->filter(function ($filter) {
+                $filter->useModal();
+                $filter->is('brand_id', 'Бренд')->select(Brand::where('status', 1)->get()->pluck('name', 'id'));
+                $filter->is('spring_id', 'Пружинный блок')->select(Spring::where('status', 1)->get()->pluck('name', 'id'));
+                $filter->is('status', 'Статус')->select([1 => 'ON', 0 => 'OFF']);
+            });
+            $grid->disableExport();
         });
     }
 
@@ -133,7 +140,7 @@ class MattressController extends Controller
                 $name_image = $this->getFileName($path.'images');
                 $this->image = $name_image;
 
-                //$form->display('id', 'ID');
+                $form->display('id', 'ID');
                 $form->hidden('type_item_id')->value(1);
                 $form->text('name', 'Наименование')->rules('required');
                 $form->ckeditor('text', 'Описание продукта');
@@ -143,18 +150,27 @@ class MattressController extends Controller
                 $form->display('updated_at', 'Updated At');
             })->tab('Параметры', function(Form $form){
                 $form->select('brand_id', 'Бренд')->options(function(){
-                    $arr = Brand::where('status', 1)->get()->pluck('name', 'id');
+                    $arrs = Brand::where('status', 1)->get();
                     $arr[0] = ' - ';
+                    foreach ($arrs as $el){
+                        $arr[$el->id] = $el->id.' '.$el->name;
+                    }
                     return $arr;
                 });
                 $form->select('series_id', 'Серия')->options(function(){
-                    $arr = Series::where('status', 1)->get()->pluck('name', 'id');
+                    $arrs = Series::where('status', 1)->get();
                     $arr[0] = ' - ';
+                    foreach ($arrs as $el){
+                        $arr[$el->id] = $el->id.' '.$el->name;
+                    }
                     return $arr;
                 });
                 $form->select('spring_id', 'Пружинный блок')->options(function(){
-                    $arr = Spring::where('status', 1)->get()->pluck('name', 'id');
+                    $arrs = Spring::where('status', 1)->get();
                     $arr[0] = ' - ';
+                    foreach ($arrs as $el){
+                        $arr[$el->id] = $el->id.' '.$el->name;
+                    }
                     return $arr;
                 });
                 $form->select('height_id', 'Высота')->options(function(){

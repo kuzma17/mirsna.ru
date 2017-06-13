@@ -10,12 +10,15 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    //public function listItem(){
-    //    $items = Item::where('status', 1)->get();
-    //    return view('item.list', ['items' => $items]);
-   // }
+    public function listItemSeries($brand = '', $type = '', $series = '', $order = 'asc'){
+        return $this->listItem($brand, $type, $series, $spring = '', $order);
+    }
 
-    public function listItem($order = 'asc'){
+    public function listItemSpring($brand = '', $type = '', $spring = '', $order = 'asc'){
+        return $this->listItem($brand, $type, $series = '', $spring, $order);
+    }
+
+    public function listItem($brand = '', $type = '', $series = '', $spring = '', $order = 'asc'){
 
         $items = DB::table('items')
             ->join('prices', 'items.id', '=', 'prices.item_id')
@@ -37,7 +40,25 @@ class ItemController extends Controller
                 \DB::raw("MAX(prices.price) AS max_price"),
                 'discounts.discount'
                 )
-            ->where('items.status', '=', 1)
+            ->where('items.status', '=', 1);
+
+        if($brand != ''){
+            $items = $items->where('brand_id', $brand);
+        }
+
+        if($type != ''){
+            $items = $items->where('type_item_id', $type);
+        }
+
+        if($series != ''){
+            $items = $items->where('series_id', $series);
+        }
+
+        if($spring != ''){
+            $items = $items->where('spring_id', $spring);
+        }
+
+        $items = $items
             ->groupBy('items.id', 'items.name', 'items.text', 'items.image','discounts.discount')
             ->orderBy('max_price', $order)
             ->get();

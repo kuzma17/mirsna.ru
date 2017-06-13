@@ -92,15 +92,21 @@ class PillowController extends Controller
                 return '<img src="/upload/'.$img.'_small.jpg" style="width:50px; height:30px">';
             });
             $grid->column('brand.name', 'Бренд');
-            $grid->column('price_pillow.size_pillow_id', 'Размер')->display(function($id){
-                $size = SizePillow::find($id);
-                return '<span class="badge">'.$size->x.' x '.$size->y.' x '.$size->h.'</span>';
-            });
+           // $grid->column('price_pillow.size_pillow_id', 'Размер')->display(function($id){
+            //    $size = SizePillow::find($id);
+           //     return '<span class="badge">'.$size->x.' x '.$size->y.' x '.$size->h.'</span>';
+          //  });
             $grid->column('price_pillow.price', 'Цена грн.')->label('warning');
             $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
+            $grid->filter(function ($filter) {
+                $filter->useModal();
+                $filter->is('brand_id', 'Бренд')->select(Brand::where('status', 1)->get()->pluck('name', 'id'));
+                $filter->is('status', 'Статус')->select([1 => 'ON', 0 => 'OFF']);
+            });
+            $grid->disableExport();
         });
     }
 
@@ -136,11 +142,14 @@ class PillowController extends Controller
             $form->ckeditor('text', 'Описание продукта');
             $form->image('image', 'image')->resize(650, 400)->name($name_image);
             $form->select('brand_id', 'Бренд')->options(function(){
-                $arr = Brand::where('status', 1)->get()->pluck('name', 'id');
+                $arrs = Brand::where('status', 1)->get();
                 $arr[0] = ' - ';
+                foreach ($arrs as $el){
+                    $arr[$el->id] = $el->id.' '.$el->name;
+                }
                 return $arr;
             });
-            $form->select('price_pillow.size_pillow_id', 'Размер')->options(function(){
+            $form->select('price_pillow.size_id', 'Размер')->options(function(){
                 $arr = [];
                 foreach(SizePillow::all() as $size){
                     $arr[$size->id] = $size->x.' x '.$size->y.' x '.$size->h;

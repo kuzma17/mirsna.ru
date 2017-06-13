@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Brand;
 use App\Item;
 
+use App\Price;
 use App\PriceMattressCover;
 use App\Size;
 use Encore\Admin\Form;
@@ -99,22 +100,28 @@ class MattressCoverController extends Controller
         return Admin::grid(Item::class, function (Grid $grid) {
 
             $grid->model()->where('type_item_id', 4);
-            //$grid->column('id')->sortable();
+            $grid->column('id')->sortable();
             $grid->column('name', 'Наименование');
             //$grid->column('image', 'image')->image($this->image, 50);
             $grid->column('image', 'image')->display(function ($img){
                 return '<img src="/upload/'.$img.'_small.jpg" style="width:50px; height:30px">';
             });
             $grid->column('brand.name', 'Бренд');
-            $grid->column('id', 'Прайс(min-max)')->display(function($id){
-                $min = PriceMattressCover::where('item_id', $id)->min('price');
-                $max = PriceMattressCover::where('item_id', $id)->max('price');
-                return $min.' - '.$max;
-            })->label('warning');
+            //->column('id', 'Прайс(min-max)')->display(function($id){
+           //     $min = Price::where('item_id', $id)->min('price');
+           //     $max = Price::where('item_id', $id)->max('price');
+           //     return $min.' - '.$max;
+           // })->label('warning');
             $grid->column('status', 'Статус')->switch($this->states);
 
             //$grid->created_at();
             $grid->updated_at();
+            $grid->filter(function ($filter) {
+                $filter->useModal();
+                $filter->is('brand_id', 'Бренд')->select(Brand::where('status', 1)->get()->pluck('name', 'id'));
+                $filter->is('status', 'Статус')->select([1 => 'ON', 0 => 'OFF']);
+            });
+            $grid->disableExport();
         });
     }
 
@@ -133,12 +140,15 @@ class MattressCoverController extends Controller
                 $name_image = $this->getFileName($path.'images');
                 $this->image = $name_image;
 
-                //$form->display('id', 'ID');
+                $form->display('id', 'ID');
                 $form->hidden('type_item_id')->value(4);
                 $form->text('name', 'Наименование')->rules('required');
                 $form->select('brand_id', 'Бренд')->options(function(){
-                    $arr = Brand::where('status', 1)->get()->pluck('name', 'id');
+                    $arrs = Brand::where('status', 1)->get();
                     $arr[0] = ' - ';
+                    foreach ($arrs as $el){
+                        $arr[$el->id] = $el->id.' '.$el->name;
+                    }
                     return $arr;
                 });
                 $form->ckeditor('text', 'Описание продукта');
@@ -147,7 +157,7 @@ class MattressCoverController extends Controller
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
             })->tab('Прайс', function(Form $form){
-                $form->hasMany('price_mattress_cover', 'Прайс', function(Form\NestedForm $form){
+                $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){
                     $form->select('size_id', 'размер')->options(function(){
                         $arr = [];
                         foreach(Size::all() as $size){

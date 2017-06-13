@@ -86,14 +86,19 @@ class CategoryController extends Controller
                     return 'root';
                 }
                 return Category::find($id)->title;
-            });
+            })->sortable();
             $grid->column('title', 'Название');
             $grid->column('url', 'url');
-            $grid->column('num', 'Номер по порядку');
+            $grid->column('num', 'Номер по порядку')->sortable();
             $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
             $grid->updated_at();
+            $grid->filter(function ($filter) {
+                $filter->useModal();
+                $filter->is('parent_id', 'родитель')->select(Category::where('status', 1)->get()->pluck('title', 'id'));
+            });
+            $grid->disableExport();
         });
     }
 
