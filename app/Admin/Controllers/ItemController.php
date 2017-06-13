@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Brand;
+use App\ClassItem;
 use App\Hard;
 use App\Height;
 use App\Item;
@@ -161,6 +162,14 @@ class ItemController extends Controller
                 });
                 $form->select('series_id', 'Серия')->options(function(){
                     $arrs = Series::where('status', 1)->get();
+                    $arr[0] = ' - ';
+                    foreach ($arrs as $el){
+                        $arr[$el->id] = $el->id.' '.$el->name;
+                    }
+                    return $arr;
+                });
+                $form->select('class_id', 'Класс')->options(function(){
+                    $arrs = ClassItem::where('status', 1)->get();
                     $arr[0] = ' - ';
                     foreach ($arrs as $el){
                         $arr[$el->id] = $el->id.' '.$el->name;

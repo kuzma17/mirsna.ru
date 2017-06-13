@@ -10,15 +10,27 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function listItemSeries($brand = '', $type = '', $series = '', $order = 'asc'){
-        return $this->listItem($brand, $type, $series, $spring = '', $order);
+    public function itemBrandSeries($brand = '', $type = '', $series = '', $order = 'asc'){
+        return $this->listItem($brand, $type, $series, $class = '', $spring = '', $order);
     }
 
-    public function listItemSpring($brand = '', $type = '', $spring = '', $order = 'asc'){
-        return $this->listItem($brand, $type, $series = '', $spring, $order);
+    public function itemBrandSpring($brand = '', $type = '', $spring = '', $order = 'asc'){
+        return $this->listItem($brand, $type, $series = '', $class = '', $spring, $order);
     }
 
-    public function listItem($brand = '', $type = '', $series = '', $spring = '', $order = 'asc'){
+    public function itemSpring($type = '', $spring = '', $order = 'asc'){
+        return $this->listItem($brand = '', $type, $series = '', $class = '', $spring, $order);
+    }
+
+    public function itemClass($type = '', $class = '', $order = 'asc'){
+        return $this->listItem($brand = '', $type, $series = '', $class, $spring = '', $order);
+    }
+
+    public function itemSeries($type = '', $series = '', $order = 'asc'){
+        return $this->listItem($brand = '', $type, $series, $class = '', $spring = '', $order);
+    }
+
+    public function listItem($brand = '', $type = '', $series = '', $class = '', $spring = '', $order = 'asc'){
 
         $items = DB::table('items')
             ->join('prices', 'items.id', '=', 'prices.item_id')
@@ -52,6 +64,10 @@ class ItemController extends Controller
 
         if($series != ''){
             $items = $items->where('series_id', $series);
+        }
+
+        if($class != ''){
+            $items = $items->where('class_id', $class);
         }
 
         if($spring != ''){

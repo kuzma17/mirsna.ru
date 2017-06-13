@@ -18,6 +18,10 @@ class Item extends Model
         return $this->belongsTo(Series::class);
     }
 
+    public function class_item(){
+        return $this->belongsTo(ClassItem::class);
+    }
+
     public function spring(){
         return $this->belongsTo(Spring::class);
     }

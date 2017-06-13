@@ -173,7 +173,7 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
 
-        Barryvdh\Debugbar\ServiceProvider::class,
+       // Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,7 +234,7 @@ return [
 
         'Image' => Intervention\Image\Facades\Image::class,
 
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        //'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
 ],
 

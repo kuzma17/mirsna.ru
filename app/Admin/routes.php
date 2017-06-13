@@ -24,6 +24,7 @@ Route::group([
     $router->resource('spring', SpringController::class);
     $router->resource('weight', WeightController::class);
     $router->resource('series', SeriesController::class);
+    $router->resource('classes', ClassController::class);
     $router->resource('items', ItemController::class);
     $router->resource('pillows', PillowController::class);
     $router->resource('mattresscovers', MattressCoverController::class);
