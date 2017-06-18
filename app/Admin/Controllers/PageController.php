@@ -75,6 +75,7 @@ class PageController extends Controller
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('title', 'title');
+            $grid->column('url', 'url');
 
             $grid->created_at();
             $grid->updated_at();
@@ -94,9 +95,10 @@ class PageController extends Controller
             $form->text('title', 'Название')->rules('required');
             $form->text('keywords', 'Ключевые слова');
             $form->ckeditor('text', 'Текст страници')->rules('required');
+            $form->text('url', 'url');
 
             //$form->display('created_at', 'Created At');
-            //$form->display('updated_at', 'Updated At');
+            $form->display('updated_at', 'Updated At');
         });
     }
 }

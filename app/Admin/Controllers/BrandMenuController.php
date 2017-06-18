@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Slideshow;
+use App\BrandMenu;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -10,12 +10,13 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
-use Image;
 use Request;
 
-class SlideshowController extends Controller
+class BrandMenuController extends Controller
 {
     use ModelForm;
+
+    protected $image;
 
     protected $states = [
         'on' => ['text' => 'ON', 'color' => 'success'],
@@ -78,14 +79,14 @@ class SlideshowController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(Slideshow::class, function (Grid $grid) {
+        return Admin::grid(BrandMenu::class, function (Grid $grid) {
 
             $grid->column('id', 'ID')->sortable();
-            $grid->column('num', 'Номер')->sortable();
-            $grid->column('image', 'Картинка')->display(function ($img){
-                return '<img src="/upload/'.$img.'" style="width:200px; height:60px">';
+            $grid->column('title', 'Title')->editable();
+            $grid->column('logo', 'Logo')->display(function ($img){
+                return '<img src="/upload/'.$img.'" style="width:100px; height:42px">';
             });
-            $grid->column('title', 'Слоган')->editable();
+            $grid->column('num', 'Номер')->sortable();
             $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
@@ -113,16 +114,17 @@ class SlideshowController extends Controller
      */
     protected function form()
     {
-        return Admin::form(Slideshow::class, function (Form $form) {
+        return Admin::form(BrandMenu::class, function (Form $form) {
 
             $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
 
-            $name_image = $this->getFileName($path.'slider').'.jpg';
+            $name_image = $this->getFileName($path.'logo').'.jpg';
 
-            //$form->display('id', 'ID');
-            $form->image('image')->resize(730, 250)->move('slider', $name_image)->rules('required');
-            $form->text('title', 'текст');
-            $form->number('num', 'номер')->default(Slideshow::max('num')+1);
+            $form->display('id', 'ID');
+            $form->text('title', 'Title')->rules('required');
+            $form->image('logo')->resize(99, 42)->move('logo', $name_image)->rules('required')->rules('required');
+            $form->text('url', 'url')->rules('required');
+            $form->number('num', 'номер')->default(BrandMenu::max('num')+1);
             $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
@@ -130,10 +132,9 @@ class SlideshowController extends Controller
         });
     }
 
-
     public function release(Request $request)
     {
-        foreach (Slideshow::find($request->get('ids')) as $post) {
+        foreach (BrandMenu::find($request->get('ids')) as $post) {
             $post->status = $request->get('action');
             $post->save();
         }

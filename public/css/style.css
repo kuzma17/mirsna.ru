@@ -292,11 +292,16 @@ text-indent:15px;
 padding-top:0px;
 padding-left:7px;
 }
-.brends img{
+.brends a img{
 float:left;
 margin:7px;
 margin-top:0px;
 border:0;
+	opacity: 0.7;
+}
+
+.brends a:hover img{
+	opacity: 1;
 }
 
 .copyright{

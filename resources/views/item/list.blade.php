@@ -10,9 +10,8 @@
 
 @section('content')
 <div class="sort">
-сортировать по цене: <a href="/item/list/sort/desc"> вниз</a> <A href="/item/list/sort/asc">вверх</A>
+сортировать по цене: <a href="{{ $url }}/desc"> вниз</a> <A href="{{ $url }}/asc">вверх</A>
 </div>
-
     <div id="clear"></div>
 
 @foreach ($items as $item)
@@ -42,7 +41,7 @@
             </div>
             <div style="float:left;height:26px;width:14px;background:url(/images/sale3.png) no-repeat;"></div>
         </div>
-        <a href="index.php">подробнее >></a>
+        <a href="{{ url('/item/'.$item->id) }}">подробнее >></a>
     </div>
     <div id="clear"></div>
 

@@ -10,6 +10,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Image;
 use Request;
 
 class BannerController extends Controller
@@ -17,6 +18,7 @@ class BannerController extends Controller
     use ModelForm;
 
     protected $id;
+    protected $image;
 
     protected $states = [
         'on' => ['text' => 'ON', 'color' => 'success'],
@@ -83,7 +85,7 @@ class BannerController extends Controller
     {
         return Admin::grid(Banner::class, function (Grid $grid) {
 
-            $grid->column('ID')->sortable();
+            $grid->column('id')->sortable();
             $grid->column('name', 'Баннер');
             $grid->column('img', 'image')->display(function ($img){
                 return '<img src="/upload/'.$img.'" style="width:50px; height:30px">';
@@ -124,30 +126,43 @@ class BannerController extends Controller
         return Admin::form(Banner::class, function (Form $form) {
 
             $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
-            $name_image = $this->getFileName($path.'banners');
+            $name_image = $this->getFileName($path.'banners').'.jpg';
 
-            $t = $this->id;
+            $this->image = $name_image;
 
-
-            if($t == 4){
-                $size_x = 200;
-                $size_y = 200;
-            }else{
-                $size_x = 800;
-                $size_y = 200;
-            }
-
-
-            $form->display('id', 'ID');
+            $form->text('id', 'ID');
             $form->display('name');
-            $form->html($size_x.' '.$size_y);
-            $form->image('img', 'image')->resize($size_x, $size_y)->move('banners', $name_image.'.jpg');
+            //$form->html($size_x.' '.$size_y);
+            $form->image('img', 'image')->move('banners', $name_image);
             $form->url('url', 'Url');
             $form->textarea('code', 'Code');
             $form->switch('status')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
+
+            $form->saved(function (Form $form){
+
+                $path = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
+
+                //$image = $form->image;
+
+                $image = 'banners/' . $this->image;
+                $image = $path . $image;
+
+                if($form->id == 4){
+                    $size_x = 200;
+                    $size_y = 200;
+                }else{
+                    $size_x = 800;
+                    $size_y = 200;
+                }
+
+                $img = Image::make($image);
+                $img->resize($size_x, $size_y);
+                $img->save($image);
+
+            });
         });
     }
 

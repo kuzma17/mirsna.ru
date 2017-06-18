@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function itemBrand($brand = '', $type = '', $order = 'asc'){
+        return $this->listItem($brand, $type, $series = '', $class = '', $spring = '', $order);
+    }
+
     public function itemBrandSeries($brand = '', $type = '', $series = '', $order = 'asc'){
         return $this->listItem($brand, $type, $series, $class = '', $spring = '', $order);
     }
@@ -30,7 +34,9 @@ class ItemController extends Controller
         return $this->listItem($brand = '', $type, $series, $class = '', $spring = '', $order);
     }
 
-    public function listItem($brand = '', $type = '', $series = '', $class = '', $spring = '', $order = 'asc'){
+    public function listItem($brand, $type, $series, $class, $spring, $order){
+
+        $url = '/item/list';
 
         $items = DB::table('items')
             ->join('prices', 'items.id', '=', 'prices.item_id')
@@ -56,29 +62,34 @@ class ItemController extends Controller
 
         if($brand != ''){
             $items = $items->where('brand_id', $brand);
+            $url .= '/brand/'.$brand;
         }
 
         if($type != ''){
             $items = $items->where('type_item_id', $type);
+            $url .= '/type/'.$type;
         }
 
         if($series != ''){
             $items = $items->where('series_id', $series);
+            $url .= '/series/'.$series;
         }
 
         if($class != ''){
             $items = $items->where('class_id', $class);
+            $url .= '/class/'.$class;
         }
 
         if($spring != ''){
             $items = $items->where('spring_id', $spring);
+            $url .= '/spring/'.$spring;
         }
 
         $items = $items
             ->groupBy('items.id', 'items.name', 'items.text', 'items.image','discounts.discount')
             ->orderBy('max_price', $order)
             ->get();
-        return view('item.list', ['items' => $items]);
+        return view('item.list', ['items' => $items, 'url' => $url]);
     }
 
     public function item($id){

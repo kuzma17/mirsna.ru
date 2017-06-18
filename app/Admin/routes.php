@@ -13,6 +13,7 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->resource('pages', PageController::class);
     $router->resource('menu', MenuController::class);
+    $router->resource('brandmenu', BrandMenuController::class);
     $router->resource('category', CategoryController::class);
     $router->resource('slideshow', SlideshowController::class);
     $router->resource('typeitem', TypeItemController::class);

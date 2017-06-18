@@ -49,33 +49,15 @@
                 <div class="block">
                     <h3>Акционные предложения</h3>
                     <div class="line2"></div>
-                    <a href="index.php?id=actions"><img src="/images/banner01.jpg" border="0"/></a>
+                    <a href="{{ route('promotion') }}"><img src="/images/banner01.jpg" border="0"/></a>
                 </div>
                 <div style="width:250px; height:100px"></div>
             </td>
             <td class="center_bl" valign="top">
                 <div class="brends">
-                    <a class="" href="index.php?id=doctor_health"><img src="/images/doctor_health.jpg"
-                                                                       onmouseover="javascript:this.src='/images/doctor_health_h.jpg'"
-                                                                       onmouseout="javascript:this.src='/images/doctor_health.jpg'"/></a>
-                    <a class="" href="index.php?id=evolution"><img src="/images/evolution.jpg"
-                                                                   onmouseover="javascript:this.src='/images/evolution_h.jpg'"
-                                                                   onmouseout="javascript:this.src='/images/evolution.jpg'"/></a>
-                    <a class="" href="index.php?id=herbalis_kids"><img src="/images/herbalis_kids.jpg"
-                                                                       onmouseover="javascript:this.src='/images/herbalis_kids_h.jpg'"
-                                                                       onmouseout="javascript:this.src='/images/herbalis_kids.jpg'"/></a>
-                    <a class="" href="index.php?id=take_go"><img src="/images/take_go.jpg"
-                                                                 onmouseover="javascript:this.src='/images/take_go_h.jpg'"
-                                                                 onmouseout="javascript:this.src='/images/take_go.jpg'"/></a>
-                    <a class="" href="index.php?id=viva"><img src="/images/viva.jpg"
-                                                              onmouseover="javascript:this.src='/images/viva_h.jpg'"
-                                                              onmouseout="javascript:this.src='/images/viva.jpg'"/></a>
-                    <a class="" href="index.php?id=sleep_fly"><img src="/images/sleep_fly.jpg"
-                                                                   onmouseover="javascript:this.src='/images/sleep_fly_h.jpg'"
-                                                                   onmouseout="javascript:this.src='/images/sleep_fly.jpg'"/></a>
-                    <a class="" href="index.php?id=american_dream"><img src="/images/american_dream.jpg"
-                                                                        onmouseover="javascript:this.src='/images/american_dream_h.jpg'"
-                                                                        onmouseout="javascript:this.src='/images/american_dream.jpg'"/></a>
+                    @foreach(\App\BrandMenu::where('status', 1)->get() as $brand_menu)
+                    <a title="{{ $brand_menu->title }}" class="" href="{{ url('/page/'.$brand_menu->url) }}"><img src="/upload/{{ $brand_menu->logo }}" /></a>
+                    @endforeach
                     <div id="clear"></div>
                 </div>
 
