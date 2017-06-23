@@ -24,8 +24,8 @@ class PageController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Страницы');
+            $content->description('');
 
             $content->body($this->grid());
         });
@@ -41,8 +41,8 @@ class PageController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Страницы');
+            $content->description('');
 
             $content->body($this->form()->edit($id));
         });
@@ -57,8 +57,8 @@ class PageController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Страницы');
+            $content->description('');
 
             $content->body($this->form());
         });

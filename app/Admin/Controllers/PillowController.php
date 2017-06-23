@@ -19,8 +19,6 @@ class PillowController extends Controller
 {
     use ModelForm;
 
-    protected $image;
-
     protected $states = [
         'on' => ['text' => 'ON', 'color' => 'success'],
         'off' => ['text' => 'OFF', 'color' => 'danger'],
@@ -35,8 +33,8 @@ class PillowController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Подушки');
+            $content->description('');
 
             $content->body($this->grid());
         });
@@ -52,8 +50,8 @@ class PillowController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Подушки');
+            $content->description('');
 
             $content->body($this->form()->edit($id));
         });
@@ -68,8 +66,8 @@ class PillowController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Подушки');
+            $content->description('');
 
             $content->body($this->form());
         });
@@ -87,9 +85,8 @@ class PillowController extends Controller
             $grid->model()->where('type_item_id', 2);
             $grid->id('ID')->sortable();
             $grid->column('name', 'Наименование');
-            //$grid->column('image', 'image')->image($this->image, 50);
             $grid->column('image', 'image')->display(function ($img){
-                return '<img src="/upload/'.$img.'_small.jpg" style="width:50px; height:30px">';
+                return '<img src="/upload/'.$img.'" style="width:50px; height:30px">';
             });
             $grid->column('brand.name', 'Бренд');
            // $grid->column('price_pillow.size_pillow_id', 'Размер')->display(function($id){
@@ -110,19 +107,6 @@ class PillowController extends Controller
         });
     }
 
-    public static function getFileName($path, $extension='')
-    {
-        $extension = $extension ? '.' . $extension : '';
-        $path = $path ? $path . '/' : '';
-
-        do {
-            $name = md5(microtime() . rand(0, 9999));
-            $file = $path . $name . $extension;
-        } while (file_exists($file));
-
-        return $name;
-    }
-
     /**
      * Make a form builder.
      *
@@ -132,15 +116,11 @@ class PillowController extends Controller
     {
         return Admin::form(Item::class, function (Form $form) {
 
-            $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
-            $name_image = $this->getFileName($path.'images');
-            $this->image = $name_image;
-
             $form->display('id', 'ID');
             $form->hidden('type_item_id')->value(2);
             $form->text('name', 'Наименование')->rules('required');
             $form->ckeditor('text', 'Описание продукта');
-            $form->image('image', 'image')->resize(650, 400)->name($name_image);
+            $form->image('image', 'image')->resize(650, 400)->uniqueName()->move('images');
             $form->select('brand_id', 'Бренд')->options(function(){
                 $arrs = Brand::where('status', 1)->get();
                 $arr[0] = ' - ';
@@ -149,7 +129,7 @@ class PillowController extends Controller
                 }
                 return $arr;
             });
-            $form->select('price_pillow.size_id', 'Размер')->options(function(){
+            $form->select('price_pillow.size_pillow_id', 'Размер')->options(function(){
                 $arr = [];
                 foreach(SizePillow::all() as $size){
                     $arr[$size->id] = $size->x.' x '.$size->y.' x '.$size->h;
@@ -161,25 +141,6 @@ class PillowController extends Controller
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
-
-            $form->saved(function (Form $form){
-                if($form->image) {
-
-                    $path = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
-
-                    if ($form->id) {
-                        $image = $form->image;
-                    } else {
-                        $image = 'images/' . $this->image;
-                    }
-
-                    $image = $path . $image;
-
-                    $img = Image::make($image);
-                    $img->resize(140, 92);
-                    $img->save($image . '_small.jpg');
-                }
-            });
         });
     }
 

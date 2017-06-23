@@ -35,8 +35,8 @@ class BannerController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Баннера');
+            $content->description('');
 
             $content->body($this->grid());
         });
@@ -53,8 +53,8 @@ class BannerController extends Controller
         $this->id = $id;
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Баннера');
+            $content->description('');
 
             $content->body($this->form()->edit($id));
         });
@@ -69,8 +69,8 @@ class BannerController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Баннера');
+            $content->description('');
 
             $content->body($this->form());
         });

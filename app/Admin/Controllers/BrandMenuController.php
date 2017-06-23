@@ -16,8 +16,6 @@ class BrandMenuController extends Controller
 {
     use ModelForm;
 
-    protected $image;
-
     protected $states = [
         'on' => ['text' => 'ON', 'color' => 'success'],
         'off' => ['text' => 'OFF', 'color' => 'danger'],
@@ -32,8 +30,8 @@ class BrandMenuController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Меню');
+            $content->description('бренды');
 
             $content->body($this->grid());
         });
@@ -49,8 +47,8 @@ class BrandMenuController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Меню');
+            $content->description('бренды');
 
             $content->body($this->form()->edit($id));
         });
@@ -65,8 +63,8 @@ class BrandMenuController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Меню');
+            $content->description('бренды');
 
             $content->body($this->form());
         });
@@ -94,19 +92,6 @@ class BrandMenuController extends Controller
         });
     }
 
-    public static function getFileName($path, $extension='')
-    {
-        $extension = $extension ? '.' . $extension : '';
-        $path = $path ? $path . '/' : '';
-
-        do {
-            $name = md5(microtime() . rand(0, 9999));
-            $file = $path . $name . $extension;
-        } while (file_exists($file));
-
-        return $name;
-    }
-
     /**
      * Make a form builder.
      *
@@ -122,7 +107,7 @@ class BrandMenuController extends Controller
 
             $form->display('id', 'ID');
             $form->text('title', 'Title')->rules('required');
-            $form->image('logo')->resize(99, 42)->move('logo', $name_image)->rules('required')->rules('required');
+            $form->image('logo')->resize(99, 42)->uniqueName()->move('logo')->rules('required');
             $form->text('url', 'url')->rules('required');
             $form->number('num', 'номер')->default(BrandMenu::max('num')+1);
             $form->switch('status')->states($this->states)->default(1);

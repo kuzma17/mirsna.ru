@@ -31,8 +31,8 @@ class CategoryController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('Меню категорий');
-            $content->description('Спмсок');
+            $content->header('Меню');
+            $content->description('категории');
 
             $content->body($this->grid());
         });
@@ -48,8 +48,8 @@ class CategoryController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Меню');
+            $content->description('категорий');
 
             $content->body($this->form()->edit($id));
         });
@@ -64,8 +64,8 @@ class CategoryController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Меню');
+            $content->description('категорий');
 
             $content->body($this->form());
         });

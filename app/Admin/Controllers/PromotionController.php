@@ -32,7 +32,7 @@ class PromotionController extends Controller
         return Admin::content(function (Content $content) {
 
             $content->header('Акции');
-            $content->description('список');
+            $content->description('');
 
             $content->body($this->grid());
         });
@@ -49,7 +49,7 @@ class PromotionController extends Controller
         return Admin::content(function (Content $content) use ($id) {
 
             $content->header('Акции');
-            $content->description('редактирование');
+            $content->description('');
 
             $content->body($this->form()->edit($id));
         });
@@ -65,7 +65,7 @@ class PromotionController extends Controller
         return Admin::content(function (Content $content) {
 
             $content->header('Акции');
-            $content->description('создание');
+            $content->description('');
 
             $content->body($this->form());
         });

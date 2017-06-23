@@ -20,7 +20,7 @@
         <h3>{{ $item->name }}</h3>
         <div style="width:145px;float:left;margin-right:10px">
             @if($item->image)
-                <img src="{{ url('/upload/'.$item->image.'_small.jpg') }}">
+                <img src="{{ url('/upload/'.$item->image) }}">
             @endif
             @if($item->discount)
                     <div class="discount_list">-{{ $item->discount }}</div>

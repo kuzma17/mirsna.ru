@@ -30,8 +30,8 @@ class SizeController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Размеры');
+            $content->description('матрасов');
 
             $content->body($this->grid());
         });
@@ -47,8 +47,8 @@ class SizeController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Размеры');
+            $content->description('матрасов');
 
             $content->body($this->form()->edit($id));
         });
@@ -63,8 +63,8 @@ class SizeController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('Размеры');
+            $content->description('матрасов');
 
             $content->body($this->form());
         });
