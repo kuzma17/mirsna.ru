@@ -24,7 +24,7 @@
     </script>
     <style>
         div{
-            border: 1px solid green;
+            border: 0px solid green;
         }
     </style>
 </head>
@@ -43,10 +43,15 @@
                 @include('layouts.menu')
             </div>
         </div>
+
+        <div id="clear"></div>
         <div class="line"></div>
+        <div id="clear"></div>
+
     </div>
-    <div class="col-lg-12">
-        <div class="col-lg-3">
+    <div class="col-lg-12" >
+        <div class="col-lg-3 ">
+            <div class="left_bl">
             <div class="select">
                 @include('modules.form_select_item')
             </div>
@@ -55,8 +60,12 @@
                 <div class="line2"></div>
                 <a href="{{ route('promotion') }}"><img src="/images/banner01.jpg" border="0"/></a>
             </div>
+
+            <div style="width:250px; height:100px"></div>
+            </div>
         </div>
         <div class="col-lg-9">
+            <div class="center_bl">
             <div class="brends">
                 @foreach(\App\BrandMenu::where('status', 1)->get() as $brand_menu)
                     <a title="{{ $brand_menu->title }}" class="" href="{{ url('/page/'.$brand_menu->url) }}"><img src="/upload/{{ $brand_menu->logo }}" /></a>
@@ -74,10 +83,15 @@
                     @yield('content')
                 </div>
             </div>
+                </div>
         </div>
-    </div>
 
-    <div class="col-lg-12">
+
+    </div>
+    <div id="clear"></div>
+    <div class="line3"></div>
+    <div id="clear"></div>
+    <div class="col-lg-12" id="bottom">
         <div id="bottom">
             <div class="menu3">
                 <ul>
