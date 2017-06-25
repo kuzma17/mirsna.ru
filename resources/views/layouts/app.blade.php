@@ -32,13 +32,13 @@
 <div class="container" style="background-color: white">
 <div class="row">
     <div class="col-lg-12">
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-3">
             <div style="width:100%">
                 <div class="logo"><img src="/images/logo.gif"></div>
             </div>
         </div>
 
-        <div class="col-lg-9">
+        <div class="col-lg-9 col-md-9">
             <div class="menu1">
                 @include('layouts.menu')
             </div>
@@ -51,6 +51,7 @@
     </div>
     <div class="col-lg-12" >
         <div class="col-lg-3 ">
+            <div class="row">
             <div class="left_bl">
             <div class="select">
                 @include('modules.form_select_item')
@@ -63,9 +64,10 @@
 
             <div style="width:250px; height:100px"></div>
             </div>
+                </div>
         </div>
         <div class="col-lg-9">
-            <div class="center_bl">
+            <div class="center_bl" style="border-color: red">
             <div class="brends">
                 @foreach(\App\BrandMenu::where('status', 1)->get() as $brand_menu)
                     <a title="{{ $brand_menu->title }}" class="" href="{{ url('/page/'.$brand_menu->url) }}"><img src="/upload/{{ $brand_menu->logo }}" /></a>
@@ -83,6 +85,7 @@
                     @yield('content')
                 </div>
             </div>
+                <div id="clear"></div>
                 </div>
         </div>
 
