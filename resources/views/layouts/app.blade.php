@@ -39,7 +39,7 @@
         </div>
 
         <div class="col-lg-9 col-md-9">
-            <div class="menu1">
+            <div class="menu1" >
                 @include('layouts.menu')
             </div>
         </div>
@@ -50,7 +50,7 @@
 
     </div>
     <div class="col-lg-12" >
-        <div class="col-lg-3 ">
+        <div class="col-lg-3 col-md-3">
             <div class="row">
             <div class="left_bl">
             <div class="select">
@@ -62,11 +62,11 @@
                 <a href="{{ route('promotion') }}"><img src="/images/banner01.jpg" border="0"/></a>
             </div>
 
-            <div style="width:250px; height:100px"></div>
+            <div class='left_bl_image'></div>
             </div>
                 </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 col-md-9">
             <div class="center_bl" style="border-color: red">
             <div class="brends">
                 @foreach(\App\BrandMenu::where('status', 1)->get() as $brand_menu)
@@ -86,6 +86,7 @@
                 </div>
             </div>
                 <div id="clear"></div>
+                <br>
                 </div>
         </div>
 
@@ -114,79 +115,6 @@
 </div>
 
 
-
-
-
-
-
-<div id="page">
-    <div id="head">
-        <div style="width:100%">
-            <div class="logo"><img src="/images/logo.gif"></div>
-        </div>
-        <div class="menu1">
-            @include('layouts.menu')
-        </div>
-        <div id="clear"></div>
-        <div class="line"></div>
-        <div id="clear"></div>
-    </div>
-    <div style="height:15px"></div>
-
-    <table id="container" width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-            <td class="left_bl" valign="top">
-                <div class="select">
-                    @include('modules.form_select_item')
-
-
-                </div>
-                <div class="block">
-                    <h3>Акционные предложения</h3>
-                    <div class="line2"></div>
-                    <a href="{{ route('promotion') }}"><img src="/images/banner01.jpg" border="0"/></a>
-                </div>
-                <div style="width:250px; height:100px"></div>
-            </td>
-            <td class="center_bl" valign="top">
-                <div class="brends">
-                    @foreach(\App\BrandMenu::where('status', 1)->get() as $brand_menu)
-                    <a title="{{ $brand_menu->title }}" class="" href="{{ url('/page/'.$brand_menu->url) }}"><img src="/upload/{{ $brand_menu->logo }}" /></a>
-                    @endforeach
-                    <div id="clear"></div>
-                </div>
-
-                <div class="menu_border">
-                    <div class="menu">
-
-
-
-                        <div id="clear"></div>
-                    </div>
-                </div>
-
-                <div >
-                    @yield('content')
-                </div>
-
-</td>
-</tr>
-</table>
-<div class="line3"></div>
-<div id="bottom">
-    <div class="menu3">
-        <ul>
-            @include('layouts.menu')
-
-        </ul>
-    </div>
-    <div class='copyright'>
-        Copyright 2013 © mirsna.od.ua &nbsp;&nbsp;Designed by <a href='mailto:v.kuzma@mail.ru'
-                                                                 title='написать письмо вебмастеру'>Kuzma</a>
-    </div>
-</div>
-</div>
-</div>
 
 <!-- Scripts -->
 <script src="/js/app.js"></script>

@@ -112,11 +112,5 @@ function showInfo(textInfo){
 
 
 
-	if($('.left_bl').height() > $('.center_bl').height()){
-		$('.center_bl').height($('.left_bl').height());
-	}else{
-		$('.left_bl').height($('.center_bl').height())
-	}
-
  });
 

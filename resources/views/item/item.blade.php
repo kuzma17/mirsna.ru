@@ -9,7 +9,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="content_page">
 <h2 style="color:#3399FF">{{ $item->name }}</h2>
 <div class="floating"></div>
 <div style="width:410px;float:right">
@@ -30,7 +30,7 @@ color:#7B7B7B; cursor: pointer;" onClick="history.back();return false;">
         <div class="menu_item"
              style="width:120px;
 float:right;
-margin-top:2px;
+margin-top:-10px;
 border: 1px #CCCCCC solid;
  -moz-border-radius: 7px;
  -webkit-border-radius: 7px;
@@ -38,8 +38,7 @@ border: 1px #CCCCCC solid;
  border-radius: 7px;
 background-color:#FF9650;
 padding:2px 5px;
-text-align:center;
-">
+text-align:center;">
             <span style="font-family:sans-serif;font-size:12px;color:#FFFFFF;text-decoration:none;"><< назад</span>
         </div>
         в предыдущий раздел
@@ -98,5 +97,5 @@ text-align:center;
     @include('item.table1')
     @endif
 
-
+</div>
 @endsection

@@ -9,6 +9,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="content_page">
 <div class="sort">
 сортировать по цене: <a href="{{ $url }}/desc"> вниз</a> <A href="{{ $url }}/asc">вверх</A>
 </div>
@@ -46,4 +47,5 @@
     <div id="clear"></div>
 
 @endforeach
+    </div>
 @endsection
