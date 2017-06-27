@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Discount;
 use App\Item;
 use App\Price;
@@ -89,7 +90,10 @@ class ItemController extends Controller
             ->groupBy('items.id', 'items.name', 'items.text', 'items.image','discounts.discount')
             ->orderBy('max_price', $order)
             ->get();
-        return view('item.list', ['items' => $items, 'url' => $url]);
+
+        $title = Category::where('url', $url)->first()->title;
+
+        return view('item.list', ['items' => $items, 'url' => $url, 'title' => $title]);
     }
 
     public function item($id){

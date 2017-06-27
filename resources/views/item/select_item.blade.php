@@ -29,7 +29,7 @@
 <br>
 @if(count($items) > 0)
 
-<table class="select_item" cellspacing="1" cellpadding="1">
+<table class="select_item" cellspacing="1" cellpadding="1" width="100%">
     <tbody>
     <tr class="head_table"><TD>бренд</TD><TD>модель</TD><TD>размер</TD><TD>высота</TD><TD>пружинный блок</TD><TD>жесткость</TD><TD>макс.вес<br>на место</TD><TD>цена</TD></tr>
     @foreach($items as $item)

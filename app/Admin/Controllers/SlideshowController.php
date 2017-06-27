@@ -103,7 +103,7 @@ class SlideshowController extends Controller
         return Admin::form(Slideshow::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->image('image')->resize(730, 250)->uniqueName()->move('slider')->rules('required');
+            $form->image('image')->resize(989, 300)->uniqueName()->move('slider')->rules('required');
             $form->text('title', 'текст');
             $form->number('num', 'номер')->default(Slideshow::max('num')+1);
             $form->switch('status')->states($this->states)->default(1);

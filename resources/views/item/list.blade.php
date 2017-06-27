@@ -10,6 +10,8 @@
 
 @section('content')
     <div class="content_page">
+        <h2 style="color:#3399FF">{{ $title }}</h2>
+        <div class="line" style="background-color:#CCCCCC"></div>
 <div class="sort">
 сортировать по цене: <a href="{{ $url }}/desc"> вниз</a> <A href="{{ $url }}/asc">вверх</A>
 </div>

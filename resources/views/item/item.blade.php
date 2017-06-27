@@ -11,6 +11,7 @@
 @section('content')
 <div class="content_page">
 <h2 style="color:#3399FF">{{ $item->name }}</h2>
+    <div class="line" style="background-color:#CCCCCC"></div>
 <div class="floating"></div>
 <div style="width:410px;float:right">
     <div id="backpage" style="width:132px;
@@ -28,7 +29,7 @@ font-family:sans-serif;
 font-size:8px;
 color:#7B7B7B; cursor: pointer;" onClick="history.back();return false;">
         <div class="menu_item"
-             style="width:120px;
+             style="width:128px;
 float:right;
 margin-top:-10px;
 border: 1px #CCCCCC solid;
@@ -41,6 +42,7 @@ padding:2px 5px;
 text-align:center;">
             <span style="font-family:sans-serif;font-size:12px;color:#FFFFFF;text-decoration:none;"><< назад</span>
         </div>
+        <div style="clear: both"></div>
         в предыдущий раздел
     </div>
 </div>

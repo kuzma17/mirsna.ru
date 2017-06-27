@@ -110,6 +110,14 @@ function showInfo(textInfo){
         }
 );
 
+	if($(window).width() > '992'){
+		if($('.left_bl').height() > $('.center_bl').height()){
+			$('.center_bl').height($('.left_bl').height());
+		}else{
+			$('.left_bl').height($('.center_bl').height());
+		}
+	}
+
 
 
  });

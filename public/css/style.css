@@ -1,7 +1,8 @@
 body{
 margin:0px ;
 padding:0px;
-background-image:url('../images/bg_site.jpg');
+//background-image:url('../images/bg_site.jpg');
+	background-image: url('../images/fritiof-56_2.jpg');
 }
 div{
 Border-style: solid;
@@ -13,8 +14,6 @@ color:#838383;
 }
 #page{
 background-color: #FFFFFF;
-margin: 0 auto;
-width:1000px;
 border: 1px #B0B0B0 solid;
  -moz-border-radius: 7px; 
  -webkit-border-radius: 7px;
@@ -22,7 +21,8 @@ border: 1px #B0B0B0 solid;
  border-radius: 7px;
 margin-top:20px;
 margin-bottom:20px;
-box-shadow: 0px 0px 20px #454545;
+box-shadow: 0px 0px 10px #454545;
+	padding-top: 20px;
 }
 #clear{
 clear:both;
@@ -33,7 +33,6 @@ font-size:12px;
 margin-top:40px;
 float:left;
 	width: 100%;
-//margin-left:270px;
 }
 
 .menu1 ul, li{

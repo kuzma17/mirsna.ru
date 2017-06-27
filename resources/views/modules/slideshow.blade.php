@@ -7,7 +7,8 @@ $images = \App\Slideshow::where('status', 1)->orderBy('num')->get();
                 @foreach($images as $image)
                     <li><img src="/upload/{{ $image->image }}" alt="{{ $image->title }}" title="{{ $image->title }}" /></li>
                 @endforeach
-            </ul></div>
+            </ul>
+        </div>
         <div class="ws_bullets">
             <div>
                 @foreach($images as $image)

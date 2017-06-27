@@ -6,13 +6,13 @@
 #wowslider-container1 { 
 	zoom: 1; 
 	position: relative; 
-	max-width:730px;
+	max-width:989px;
 	margin:0px auto 0px;
 	z-index:90;
 	border:none;
 	text-align:left; /* reset align=center */
 }
-* html #wowslider-container1{ width:730px }
+* html #wowslider-container1{ width:989px }
 #wowslider-container1 .ws_images ul{
 	position:relative;
 	width: 10000%; 
@@ -161,6 +161,6 @@
 @-webkit-keyframes wsBasic{0%{left:-0%} 8.33%{left:-0%} 16.67%{left:-100%} 25%{left:-100%} 33.33%{left:-200%} 41.67%{left:-200%} 50%{left:-300%} 58.33%{left:-300%} 66.67%{left:-400%} 75%{left:-400%} 83.33%{left:-500%} 91.67%{left:-500%} }
 .slideshow{
 border:1px #CCCCCC solid;
-	margin-top: 3px;
+	margin-top: 7px;
 }
 
