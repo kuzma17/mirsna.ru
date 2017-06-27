@@ -29,4 +29,3 @@ Encore\Admin\Form::forget(['map', 'editor']);
 Form::extend('ckeditor', CKEditor::class);
 
 Admin::script(BadgeMenu::countItem());
-Admin::script(BadgeMenu::countBrand());

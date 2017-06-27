@@ -17,13 +17,4 @@ EOT;
         return $script;
     }
 
-    public static function countBrand(){
-        $countBrand = Brand::count();
-        $script = <<<EOT
-            var obj = $('ul.sidebar-menu li a[href="/admin/brands"]');
-            obj.append( '<span class="label label-success" style="position:absolute; right: 10px" >$countBrand</span>' );
-EOT;
-        return $script;
-    }
-    
 }
