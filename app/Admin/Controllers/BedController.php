@@ -99,7 +99,7 @@ class BedController extends Controller
            // })->label('warning');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            //$grid->created_at();
+            $grid->created_at();
             $grid->updated_at();
             $grid->filter(function ($filter) {
                 $filter->useModal();
