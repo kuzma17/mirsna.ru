@@ -10,8 +10,6 @@
 
 @section('content')
 <div class="content_page">
-<h2 style="color:#3399FF">{{ $item->name }}</h2>
-    <div class="line" style="background-color:#CCCCCC"></div>
 <div class="floating"></div>
 <div style="width:410px;float:right">
     <div id="backpage" style="width:132px;
@@ -46,6 +44,9 @@ text-align:center;">
         в предыдущий раздел
     </div>
 </div>
+    <div style="clear:both;"></div>
+    <h2 style="color:#3399FF; margin-top: -20px">{{ $item->name }}</h2>
+    <div class="line" style="background-color:#CCCCCC"></div>
 
 @if($item->image)
 <div class="zoom_img" id='ex1'>

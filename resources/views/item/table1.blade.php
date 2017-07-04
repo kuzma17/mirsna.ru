@@ -1,7 +1,7 @@
-<table class="price" cellspacing="1" cellpadding="1">
+<table class="price" cellspacing="1" cellpadding="1" width="100%">
     <tr>
-        <td width="96">Размеры</td>
-        <td colspan="{{ count($arr_x) }}">Ширина (мм)</td>
+        <th width="96">Размеры</th>
+        <th colspan="{{ count($arr_x) }}">Ширина (мм)</th>
     </tr>
     <tr>
         <td>Длина (мм)</td>

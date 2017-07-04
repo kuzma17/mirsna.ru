@@ -369,6 +369,7 @@ background-color:#CCCCCC;
 width:100%;
 margin: 0 auto;
 }
+
 .price td{
 background-color:#F5F5F5;
 height:20px;
@@ -376,6 +377,7 @@ font-family:sans-serif;
 font-size:10px;
 color:#333333;
 text-align:center;
+	border: 1px solid white;
 }
 .zoom_img{
 font-family:sans-serif;
@@ -384,7 +386,7 @@ color:#333333;
 margin:5px 10px 5px 0px;
 float:left;
 border: 1px #CCCCCC solid;
-width:305px;
+width:295px;
 	cursor: move;
 }
 .zoom_img img{
