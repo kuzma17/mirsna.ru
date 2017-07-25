@@ -103,7 +103,7 @@
                     </ul>
                 </div>
                 <div class='copyright'>
-                    Copyright 2013 © mirsna.od.ua &nbsp;&nbsp;Designed by <a href='mailto:v.kuzma@mail.ru'
+                    Copyright 2017 © mirsna.od.ua &nbsp;&nbsp;Designed by <a href='mailto:v.kuzma@mail.ru'
                                                                              title='написать письмо вебмастеру'>Kuzma</a>
                 </div>
             </div>
