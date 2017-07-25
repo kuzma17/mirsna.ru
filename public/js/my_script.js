@@ -53,8 +53,6 @@ $(document).ready(function () {
     });
 
 
-
-
   //$('button[type="submit"]').click(function () {
    //   $("form").submit(function(){
      //     alert($('input#price').val());
@@ -62,5 +60,4 @@ $(document).ready(function () {
 //
      // alert(3213213);
   //})
-
 });
