@@ -21,6 +21,7 @@ class ItemController extends Controller
 
     public function itemBrandSpring($brand = '', $type = '', $spring = '', $order = 'asc'){
         return $this->listItem($brand, $type, $series = '', $class = '', $spring, $order);
+        //echo 123;
     }
 
     public function itemSpring($type = '', $spring = '', $order = 'asc'){

@@ -8,6 +8,7 @@ use App\Hard;
 use App\Height;
 use App\Item;
 
+use App\Price;
 use App\Series;
 use App\Size;
 use App\Spring;
@@ -18,6 +19,8 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
+use Exception;
+use Illuminate\Support\MessageBag;
 use Image;
 use Request;
 
@@ -178,16 +181,47 @@ class MattressController extends Controller
                 $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){
                     $form->select('size_id', 'размер')->options(function(){
                         $arr = [];
-                        foreach(Size::all() as $size){
+                        foreach(Size::where('status', 1)->get() as $size){
                             $arr[$size->id] = $size->x.' x '.$size->y;
                         }
                         return $arr;
                     });
+
                     $form->currency('price', 'цена')->symbol('грн.');
+
                 });
                 $form->html("<strong style='margin-left:-170px;'>Нестандартный размер</strong>");
                 $form->currency('custom_price.price', 'стоимость за 1 кв. м.')->symbol('грн.');
             });
+
+
+
+           // $form->saving(function ($form){
+
+
+                //$form->price[58]['price'] = 7;
+
+              //  $arr_price =  $form->model()->price;
+
+               // $success = new MessageBag([
+                  //  'title'   => 'title...',
+                    //'message' => $form->model()->id,
+                   // 'message' => Price::where('item_id', $form->model()->id)->first()->size_id,
+
+                    //'message' => $arr_price[2]->size_id,
+                    //'message' => count($form->price),
+                  //  'message' => json_encode($form->price),
+                   // 'message' => json_encode($form->price[58]['price']),
+                   // 'message' => $form->price[58]['price'],
+                    //'message' => $form->price[58]['id'],
+              //  ]);
+
+
+
+
+             //  return back()->with(compact('success'));
+
+            //});
         });
     }
 

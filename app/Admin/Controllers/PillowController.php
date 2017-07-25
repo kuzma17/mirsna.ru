@@ -93,7 +93,7 @@ class PillowController extends Controller
             //    $size = SizePillow::find($id);
            //     return '<span class="badge">'.$size->x.' x '.$size->y.' x '.$size->h.'</span>';
           //  });
-            $grid->column('price_pillow.price', 'Цена грн.')->label('warning');
+            //$grid->column('price_pillow.price', 'Цена грн.')->label('warning');
             $grid->column('status', 'Статус')->switch($this->states);
 
             $grid->created_at();
@@ -129,7 +129,7 @@ class PillowController extends Controller
                 }
                 return $arr;
             });
-            $form->select('price_pillow.size_pillow_id', 'Размер')->options(function(){
+            $form->select('price_pillow.size_id', 'Размер')->options(function(){
                 $arr = [];
                 foreach(SizePillow::all() as $size){
                     $arr[$size->id] = $size->x.' x '.$size->y.' x '.$size->h;

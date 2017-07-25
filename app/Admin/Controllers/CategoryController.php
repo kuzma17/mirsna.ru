@@ -83,9 +83,10 @@ class CategoryController extends Controller
             $grid->column('id', 'ID')->sortable();
             $grid->column('parent_id', 'Родительская категория')->display(function($id){
                 if($id == 0){
-                    return 'root';
+                    return '0 root';
                 }
-                return Category::find($id)->title;
+                $category = Category::find($id);
+                return $category->id.' '.$category->title;
             })->sortable();
             $grid->column('title', 'Название');
             $grid->column('url', 'url');

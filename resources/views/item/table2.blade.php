@@ -1,10 +1,14 @@
+<?php
+$size = \App\SizePillow::find($item->price_pillow->size_id);
+?>
+
 <table class="price" cellspacing="1" cellpadding="1" style="width:70%">
     <tr>
         <td>Размер (мм)</td>
         <td>Стоимость модели (грн.)</td>
     </tr>
     <tr>
-        <td>{{ $item->price_pillow->size_pillow->x.' x '.$item->price_pillow->size_pillow->y.' x '.$item->price_pillow->size_pillow->h }}</td>
+        <td>{{ $size->x.' x '.$size->y.' x '.$size->h }}</td>
             <td>
                 @if($discount)
                     <span style="text-decoration:line-through; color:#8E8E8E">

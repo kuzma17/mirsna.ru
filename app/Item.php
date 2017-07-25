@@ -39,20 +39,20 @@ class Item extends Model
     }
 
     public function price_pillow(){
-        return $this->hasOne(PricePillow::class);
+        return $this->hasOne(Price::class);
     }
 
-    public function price_mattress_cover(){
-        return $this->hasMany(PriceMattressCover::class);
-    }
+    //public function price_mattress_cover(){
+    //    return $this->hasMany(PriceMattressCover::class);
+    //}
 
-    public function price_slatted(){
-        return $this->hasMany(PriceSlatted::class);
-    }
+   // public function price_slatted(){
+   //     return $this->hasMany(PriceSlatted::class);
+    //}
 
-    public function price_bed(){
-        return $this->hasMany(PriceBed::class);
-    }
+   // public function price_bed(){
+   //     return $this->hasMany(PriceBed::class);
+   // }
 
     public function custom_price(){
         return $this->hasOne(CustomPrice::class);

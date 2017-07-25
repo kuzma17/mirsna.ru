@@ -12,4 +12,8 @@ class Price extends Model
         return $this->belongsTo(Size::class);
     }
 
+    public function size_pillow(){
+        return $this->hasOne(SizePillow::class);
+    }
+
 }

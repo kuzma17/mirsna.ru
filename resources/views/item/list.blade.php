@@ -19,7 +19,7 @@
 
 @foreach ($items as $item)
 
-    <div class="list_item" urlpage="index.php" >
+    <div class="list_item" urlpage="{{ url('/item/'.$item->id) }}" >
         <h3>{{ $item->name }}</h3>
         <div style="width:145px;float:left;margin-right:10px">
             @if($item->image)
