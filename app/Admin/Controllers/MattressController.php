@@ -194,34 +194,6 @@ class MattressController extends Controller
                 $form->currency('custom_price.price', 'стоимость за 1 кв. м.')->symbol('грн.');
             });
 
-
-
-           // $form->saving(function ($form){
-
-
-                //$form->price[58]['price'] = 7;
-
-              //  $arr_price =  $form->model()->price;
-
-               // $success = new MessageBag([
-                  //  'title'   => 'title...',
-                    //'message' => $form->model()->id,
-                   // 'message' => Price::where('item_id', $form->model()->id)->first()->size_id,
-
-                    //'message' => $arr_price[2]->size_id,
-                    //'message' => count($form->price),
-                  //  'message' => json_encode($form->price),
-                   // 'message' => json_encode($form->price[58]['price']),
-                   // 'message' => $form->price[58]['price'],
-                    //'message' => $form->price[58]['id'],
-              //  ]);
-
-
-
-
-             //  return back()->with(compact('success'));
-
-            //});
         });
     }
 

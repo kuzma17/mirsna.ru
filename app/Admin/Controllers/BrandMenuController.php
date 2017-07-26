@@ -101,10 +101,6 @@ class BrandMenuController extends Controller
     {
         return Admin::form(BrandMenu::class, function (Form $form) {
 
-            $path = $_SERVER['DOCUMENT_ROOT'].'/upload/';
-
-            $name_image = $this->getFileName($path.'logo').'.jpg';
-
             $form->display('id', 'ID');
             $form->text('title', 'Title')->rules('required');
             $form->image('logo')->resize(99, 42)->uniqueName()->move('logo')->rules('required');
