@@ -90,10 +90,11 @@ text-align:center;">
 @endif
 <br>
 
-<p><strong>Прайс {{ $item->brand->name or '' }} грн.
+<p>Прайс {{ $item->brand->name or '' }} грн.
         @if($discount)
         с учетом <span style="color:red">акции - {{ $discount }}%</span>';
         @endif
+    </p>
     @if($item->type_item_id == 2)
     @include('item.table2')
     @else
