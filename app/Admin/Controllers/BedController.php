@@ -134,7 +134,7 @@ class BedController extends Controller
                 });
                 $form->ckeditor('text', 'Описание продукта');
                 $form->image('image', 'image')->resize(650, 400)->uniqueName()->move('images');
-                $form->switch('status')->states($this->states)->default(1);
+                $form->switch('status', 'Статус')->states($this->states)->default(1);
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
             })->tab('Прайс', function(Form $form){

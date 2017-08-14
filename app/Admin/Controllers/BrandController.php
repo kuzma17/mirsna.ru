@@ -102,7 +102,7 @@ class BrandController extends Controller
             $form->display('id', 'ID');
             $form->text('name', 'Бренд')->rules('required');
             $form->number('num', 'номер')->default(Brand::max('num')+1);
-            $form->switch('status')->states($this->states)->default(1);
+            $form->switch('status', 'Статус')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

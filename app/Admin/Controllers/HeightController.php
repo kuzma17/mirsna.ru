@@ -101,7 +101,7 @@ class HeightController extends Controller
             $form->display('id', 'ID');
             $form->text('name', 'Высота')->rules('required');
             $form->number('num', 'Номер по порядку')->default(Height::max('num')+1);
-            $form->switch('status')->states($this->states)->default(1);
+            $form->switch('status', 'Статус')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

@@ -99,7 +99,7 @@ class MattressController extends Controller
                 return '<img src="/upload/'.$img.'" style="width:50px; height:30px">';
             });
             $grid->column('brand.name', 'Бренд');
-            $grid->column('spring.name', 'Пр. блок');
+            $grid->column('spring.name', 'Пружинный блок');
             $grid->column('status', 'Статус')->switch($this->states);
 
             //$grid->created_at();
@@ -130,7 +130,7 @@ class MattressController extends Controller
                 $form->text('name', 'Наименование')->rules('required');
                 $form->ckeditor('text', 'Описание продукта');
                 $form->image('image', 'image')->resize(650, 400)->uniqueName()->move('images');
-                $form->switch('status')->states($this->states)->default(1);
+                $form->switch('status', 'Статус')->states($this->states)->default(1);
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
             })->tab('Параметры', function(Form $form){

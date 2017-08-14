@@ -103,7 +103,7 @@ class MenuController extends Controller
             $form->text('title', 'Название')->rules('required');
             $form->text('url', 'Ссилка');
             $form->number('num', 'Номер по порядку')->default(Menu::max('num')+1);
-            $form->switch('status')->states($this->states)->default(1);
+            $form->switch('status', 'Статус')->states($this->states)->default(1);
 
             //$form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
