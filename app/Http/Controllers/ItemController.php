@@ -90,7 +90,8 @@ class ItemController extends Controller
         $items = $items
             ->groupBy('items.id', 'items.name', 'items.text', 'items.image','discounts.discount')
             ->orderBy('max_price', $order)
-            ->get();
+            ->paginate(7);
+            //->get();
 
         $title = Category::where('url', $url)->first()->title;
 

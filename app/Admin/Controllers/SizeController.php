@@ -88,8 +88,13 @@ class SizeController extends Controller
             $grid->column('num', 'номер');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
+            $grid->actions(function($actions){
+                if(!Admin::user()->isAdministrator()) {
+                    $actions->disableDelete();
+                }
+            });
         });
     }
 
@@ -103,8 +108,8 @@ class SizeController extends Controller
         return Admin::form(Size::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('x', 'Ширина')->rules('required');
-            $form->text('y', 'Длинна')->rules('required');
+            $form->number('x', 'Ширина')->rules('required');
+            $form->number('y', 'Длинна')->rules('required');
             $form->number('num', 'Номер по порядку')->default(Size::max('num')+1);
             $form->switch('status')->states($this->states)->default(1);
 

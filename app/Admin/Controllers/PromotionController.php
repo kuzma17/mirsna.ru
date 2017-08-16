@@ -5,6 +5,8 @@ namespace App\Admin\Controllers;
 use App\Item;
 use App\Promotion;
 
+use App\TypeItem;
+use DB;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Facades\Admin;
@@ -86,7 +88,7 @@ class PromotionController extends Controller
             $grid->column('date_to', 'дата окончания');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
         });
     }
@@ -102,22 +104,26 @@ class PromotionController extends Controller
 
             $form->tab('Основное', function(Form $form){
                 $form->display('id', 'ID');
-                $form->text('title', 'Название');
+                $form->text('title', 'Название')->rules('required');
                 $form->ckeditor('text', 'Описание акции');
-                $form->dateRange('date_from', 'date_to', 'Период действия');
-                $form->switch('status')->states($this->states)->default(1);
+                $form->dateRange('date_from', 'date_to', 'Период действия')->rules('required');
+                $form->switch('status', 'Статус')->states($this->states)->default(1);
 
                 $form->display('created_at', 'Created At');
                 $form->display('updated_at', 'Updated At');
             })->tab('Скидки по товарам', function(Form $form){
                 $form->hasMany('discount', 'Скидки', function(Form\NestedForm $form){
-                    $form->select('item_id', 'размер')->options(Item::all()->pluck('name', 'id'));
-                        //$arr = [];
-                       // foreach(Size::all() as $size){
-                         //   $arr[$size->id] = $size->x.' x '.$size->y;
-                       // }
-                       // return $arr;
-                   // });
+                    $form->select('item_id', 'Товар')->options(function (){
+                        $arrs = DB::table('items')
+                            ->join('type_items', 'items.type_item_id', 'type_items.id')
+                            ->select('items.id', 'type_items.name as type_item', 'items.name')
+                            ->get();
+                        $arr = [];
+                        foreach ($arrs as $el){
+                            $arr[$el->id] = $el->id.' '.$el->type_item.' "'.$el->name.'"';
+                        }
+                        return $arr;
+                    });
                     $form->rate('discount', 'Скидка');
                 });
             });

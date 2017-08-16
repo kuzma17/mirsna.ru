@@ -2,7 +2,7 @@
 <div class="line2"></div>
 <div class="matress">
     <table cellpadding="1" cellspacing="3">
-        <form id="select_form" name="select" method="POST" action="/select">
+        <form id="select_form" name="select" method="GET" action="/select">
             {{ csrf_field() }}
             <TR>
                 <TD>Бренд:</TD>
@@ -29,7 +29,7 @@
             <tr>
                 <TD>Высота:</TD>
                 <td>
-                    <select name="height">
+                    <select name="height_m">
                         <OPTION value="">Не важно</OPTION>
                         @foreach(\App\Height::where('status', 1)->orderBy('num', 'asc')->get() as $height)
                             <option value="{{ $height->id }}" >{{ $height->name }}</option>
@@ -63,10 +63,10 @@
             <tr>
                 <TD nowrap="true">Вес на место:</TD>
                 <td>
-                    <select name="weight">
+                    <select name="weight_m">
                         <OPTION value="">Не важно</OPTION>
                         @foreach(\App\Weight::where('status', 1)->orderBy('num', 'asc')->get() as $weight)
-                            <option value="{{ $weight->id }}" >{{ $weight->name }}</option>
+                            <option value="{{ $weight->name }}" >{{ $weight->name }}</option>
                         @endforeach
                     </select>
                 </td>

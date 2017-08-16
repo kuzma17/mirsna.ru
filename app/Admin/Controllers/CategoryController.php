@@ -93,7 +93,7 @@ class CategoryController extends Controller
             $grid->column('num', 'Номер по порядку')->sortable();
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
             $grid->filter(function ($filter) {
                 $filter->useModal();
@@ -126,8 +126,8 @@ class CategoryController extends Controller
             $form->number('num', 'Номер по порядку')->default(Category::max('num') + 1);
             $form->switch('status', 'Статус')->states($this->states)->default(1);
 
-           // $form->display('created_at', 'Created At');
-            //$form->display('updated_at', 'Updated At');
+            $form->display('created_at', 'Created At');
+            $form->display('updated_at', 'Updated At');
         });
     }
 

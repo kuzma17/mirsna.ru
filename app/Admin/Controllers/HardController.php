@@ -84,8 +84,13 @@ class HardController extends Controller
             $grid->column('num','номер');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
+            $grid->actions(function($actions){
+                if(!Admin::user()->isAdministrator()) {
+                    $actions->disableDelete();
+                }
+            });
         });
     }
 

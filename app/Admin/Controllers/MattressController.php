@@ -166,16 +166,18 @@ class MattressController extends Controller
                     }
                     return $arr;
                 });
-                $form->select('height_id', 'Высота')->options(function(){
-                    $arr = Height::where('status', 1)->get()->pluck('name', 'id');
-                    $arr[0] = ' - ';
-                    return $arr;
-                });
-                $form->select('weight_id', 'Вес на м')->options(function(){
-                    $arr = Weight::where('status', 1)->get()->pluck('name', 'id');
-                    $arr[0] = ' - ';
-                    return $arr;
-                });
+                //$form->select('height_id', 'Высота')->options(function(){
+                //    $arr = Height::where('status', 1)->get()->pluck('name', 'id');
+                 //   $arr[0] = ' - ';
+                  //  return $arr;
+                //});
+                $form->number('height_m', 'Высота');
+               // $form->select('weight', 'Вес на м')->options(function(){
+             //       $arr = Weight::where('status', 1)->get()->pluck('name', 'name');
+               //     $arr[0] = ' - ';
+             //       return $arr;
+             //   });
+                $form->number('weight_m', 'Вес на м');
                 $form->multipleSelect('hard', 'Жосткость')->options(Hard::all()->pluck('name', 'id'))->placeholder('Жосткость');
             })->tab('Прайс', function(Form $form){
                 $form->hasMany('price', 'Прайс', function(Form\NestedForm $form){

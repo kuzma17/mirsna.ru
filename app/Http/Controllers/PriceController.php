@@ -35,9 +35,17 @@ class PriceController extends Controller
             $user_request['size'] = $size_el->x.' x '.$size_el->y;
         }
 
-        if($request->input('height')){
-            $query_where .= ' AND items.height_id = '.$request->input('height');
-            $user_request['height'] = Height::find($request->input('height'))->name;
+        if($request->input('height_m')){
+            $height_set = Height::find($request->input('height_m'));
+            $height_min = $height_set->min;
+            $height_max = $height_set->max;
+            if($height_min == 0){
+                $query_where .= ' AND items.height_m <= '.$height_max;
+            }elseif ($height_max == 0){
+                $query_where .= ' AND items.height_m >= '.$height_min;
+            }else{
+                $query_where .= ' AND items.height_m <= '.$height_max.' AND items.height_m >= '.$height_min;
+            }
         }
 
         if($request->input('spring')){
@@ -50,9 +58,9 @@ class PriceController extends Controller
             $user_request['hard'] = Hard::find($request->input('hard'))->name;
         }
 
-        if($request->input('weight')){
-            $query_where .= ' AND items.weight_id = '.$request->input('weight');
-            $user_request['weight'] = Weight::find($request->input('weight'))->name;
+        if($request->input('weight_m')){
+            $query_where .= ' AND items.weight_m >= '.$request->input('weight_m');
+            $user_request['weight_m'] = $request->input('weight_m');
         }
 
         if($price_from){
@@ -69,9 +77,7 @@ class PriceController extends Controller
             ->join('items', 'prices.item_id', '=', 'items.id')
             ->join('brands', 'items.brand_id', '=', 'brands.id')
             ->join('sizes', 'prices.size_id', '=', 'sizes.id')
-            ->join('heights', 'items.height_id', '=', 'heights.id')
             ->join('springs', 'items.spring_id', '=', 'springs.id')
-            ->join('weights', 'items.weight_id', '=', 'weights.id')
             ->leftJoin('promotions', function ($join) {
                 $join->where('promotions.status', '=', 1)
                     ->where('promotions.date_from', '<=', date("Y-m-d"))
@@ -95,15 +101,13 @@ class PriceController extends Controller
             'brands.name AS brand',
             'sizes.x',
             'sizes.y',
-            'heights.name AS height',
+            'height_m',
             'springs.name AS spring',
-            'weights.name AS weight'
+            'weight_m'
         )->whereRaw($query_where)
-            //->where('items.brand_id', '=', 1)
-            //->groupBy('items.id', 'items.name', 'items.text', 'items.image')
             ->orderBy('prices.price', $request->input('sort'))
-            //->paginate(25);
-            ->get();
+            ->paginate(30);
+            //->get();
 
 
         return view('item.select_item', ['user_request'=>$user_request, 'items' => $items]);

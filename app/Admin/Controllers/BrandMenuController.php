@@ -87,7 +87,7 @@ class BrandMenuController extends Controller
             $grid->column('num', 'Номер')->sortable();
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
         });
     }

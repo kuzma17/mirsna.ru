@@ -92,14 +92,9 @@ class BedController extends Controller
                 return '<img src="/upload/'.$img.'" style="width:50px; height:30px">';
             });
             $grid->column('brand.name', 'Бренд');
-           // $grid->column('id', 'Прайс(min-max)')->display(function($id){
-           //     $min = Price::where('item_id', $id)->min('price');
-            //    $max = Price::where('item_id', $id)->max('price');
-           //     return $min.' - '.$max;
-           // })->label('warning');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+           // $grid->created_at();
             $grid->updated_at();
             $grid->filter(function ($filter) {
                 $filter->useModal();

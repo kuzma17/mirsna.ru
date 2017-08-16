@@ -89,14 +89,9 @@ class PillowController extends Controller
                 return '<img src="/upload/'.$img.'" style="width:50px; height:30px">';
             });
             $grid->column('brand.name', 'Бренд');
-           // $grid->column('price_pillow.size_pillow_id', 'Размер')->display(function($id){
-            //    $size = SizePillow::find($id);
-           //     return '<span class="badge">'.$size->x.' x '.$size->y.' x '.$size->h.'</span>';
-          //  });
-            //$grid->column('price_pillow.price', 'Цена грн.')->label('warning');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
             $grid->filter(function ($filter) {
                 $filter->useModal();

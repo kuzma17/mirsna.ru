@@ -77,7 +77,7 @@ class PageController extends Controller
             $grid->column('title', 'title');
             $grid->column('url', 'url');
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
         });
     }
@@ -97,7 +97,7 @@ class PageController extends Controller
             $form->ckeditor('text', 'Текст страници')->rules('required');
             $form->text('url', 'url');
 
-            //$form->display('created_at', 'Created At');
+            $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
         });
     }

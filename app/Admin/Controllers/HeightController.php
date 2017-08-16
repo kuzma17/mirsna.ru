@@ -80,12 +80,19 @@ class HeightController extends Controller
         return Admin::grid(Height::class, function (Grid $grid) {
 
             $grid->column('id', 'ID')->sortable();
+            $grid->column('min', 'мин. высота');
+            $grid->column('max', 'макс. высота');
             $grid->column('name', 'Высота');
             $grid->column('num', 'Номер');
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
+            $grid->actions(function($actions){
+                if(!Admin::user()->isAdministrator()) {
+                    $actions->disableDelete();
+                }
+            });
         });
     }
 
@@ -99,6 +106,8 @@ class HeightController extends Controller
         return Admin::form(Height::class, function (Form $form) {
 
             $form->display('id', 'ID');
+            $form->number('min', 'мин. высота')->rules('required');
+            $form->number('max', 'макс. высота')->rules('required');
             $form->text('name', 'Высота')->rules('required');
             $form->number('num', 'Номер по порядку')->default(Height::max('num')+1);
             $form->switch('status', 'Статус')->states($this->states)->default(1);

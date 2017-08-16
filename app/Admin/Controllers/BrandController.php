@@ -84,9 +84,14 @@ class BrandController extends Controller
             $grid->column('num', 'номер')->sortable();
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
             $grid->disableExport();
+            $grid->actions(function($actions){
+                if(!Admin::user()->isAdministrator()) {
+                    $actions->disableDelete();
+                }
+            });
         });
     }
 

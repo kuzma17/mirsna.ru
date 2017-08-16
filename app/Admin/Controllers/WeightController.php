@@ -85,7 +85,12 @@ class WeightController extends Controller
             $grid->column('status', 'Статус')->switch($this->states);
 
             //$grid->created_at();
-            //$grid->updated_at();
+            $grid->updated_at();
+            $grid->actions(function($actions){
+                if(!Admin::user()->isAdministrator()) {
+                    $actions->disableDelete();
+                }
+            });
         });
     }
 
@@ -99,9 +104,9 @@ class WeightController extends Controller
         return Admin::form(Weight::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->text('name', 'Вес')->rules('required');
+            $form->number('name', 'Вес')->rules('required');
             $form->number('num', 'Номер по порядку')->default(Weight::max('num')+1);
-            $form->switch('status')->states($this->states)->default(1);
+            $form->switch('status', 'Статус')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

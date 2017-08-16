@@ -88,7 +88,7 @@ class SlideshowController extends Controller
             $grid->column('title', 'Слоган')->editable();
             $grid->column('status', 'Статус')->switch($this->states);
 
-            $grid->created_at();
+            //$grid->created_at();
             $grid->updated_at();
         });
     }
