@@ -24,6 +24,8 @@
     <h2 style="color:#3399FF; margin-top: -20px">{{ $item->name }}</h2>
     <div class="line" style="background-color:#CCCCCC"></div>
 
+    @include('modules.video')
+
 @if($item->image)
 <div class="zoom_img" id='ex1'>
     <img src="{{ url('/upload/'.$item->image) }}" title="" style="width: 300px; height: 200px;" />

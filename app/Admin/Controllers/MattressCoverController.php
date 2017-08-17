@@ -145,10 +145,10 @@ class MattressCoverController extends Controller
                         }
                         return $arr;
                     });
-                    $form->currency('price', 'цена')->symbol('грн.');
+                    $form->currency('price', 'цена')->symbol('грн.')->rules('required|numeric');
                 });
                 $form->html("<strong style='margin-left:-170px;'>Нестандартный размер</strong>");
-                $form->currency('custom_price.price', 'стоимость за 1 кв. м.')->symbol('грн.');
+                $form->currency('custom_price.price', 'стоимость за 1 кв. м.')->symbol('грн.')->rules('numeric');
             });
         });
     }

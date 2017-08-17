@@ -123,8 +123,8 @@ class PromotionController extends Controller
                             $arr[$el->id] = $el->id.' '.$el->type_item.' "'.$el->name.'"';
                         }
                         return $arr;
-                    });
-                    $form->rate('discount', 'Скидка');
+                    })->rules('required');;
+                    $form->rate('discount', 'Скидка')->rules('required|numeric');
                 });
             });
         });

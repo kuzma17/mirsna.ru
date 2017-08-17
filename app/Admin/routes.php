@@ -34,4 +34,5 @@ Route::group([
     $router->resource('mattress', MattressController::class);
     $router->resource('promotions', PromotionController::class);
     $router->resource('banners', BannerController::class);
+    $router->resource('videos', VideoController::class);
 });

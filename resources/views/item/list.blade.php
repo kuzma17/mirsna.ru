@@ -17,6 +17,8 @@
 </div>
     <div id="clear"></div>
 
+        @include('modules.video')
+
 @foreach ($items as $item)
 
     <div class="list_item" urlpage="{{ url('/item/'.$item->id) }}" >

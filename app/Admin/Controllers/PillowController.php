@@ -131,7 +131,7 @@ class PillowController extends Controller
                 }
                 return $arr;
             });
-            $form->currency('price_pillow.price', 'Цена')->symbol('грн.')->rules('required');
+            $form->currency('price_pillow.price', 'Цена')->symbol('грн.')->rules('required|numeric');
             $form->switch('status', 'Статус')->states($this->states)->default(1);
 
             $form->display('created_at', 'Created At');

@@ -535,8 +535,9 @@ font-weight:bolder;
 color:#FF8000;
 text-decoration:none;
 }
-.video_box{margin-top:30px;
-width:560px;margin-left:70px;background:#808080;border: 1px #777777 solid;
+.video_box{
+width:563px;background:#808080;border: 1px #777777 solid;
+	margin: 0 auto;
 }
 .video_panel{
 height:15px;font-family:sans-serif;margin-left:2px;padding:3px;

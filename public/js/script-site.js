@@ -45,7 +45,7 @@ $('#video_a').text("показать видео");
 key_video = 0;
 }else{
 $('.video_box').animate({marginTop: "30px"}, 400);
-$('.video_box').animate({marginLeft: "70px",width: "560px"}, 700, function(){
+$('.video_box').animate({marginLeft: "17%",  width: "563px"}, 700, function(){
  $('#fr').html(bringback1);
 $('#fr').show('fast');
 });
